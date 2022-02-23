@@ -1,0 +1,28 @@
+<svg id="tickets" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="54.922" height="54.923" viewBox="0 0 54.922 54.923">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.86" y1="0.104" x2="0.134" y2="0.856" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00b925"/>
+      <stop offset="1" stop-color="#9aff00"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_59" data-name="Group 59">
+    <g id="Group_58" data-name="Group 58">
+      <path id="Path_360" data-name="Path 360" d="M48.13,13.754l-1.138,1.138a4.923,4.923,0,0,1-6.962-6.962l1.138-1.138L34.376,0,0,34.376l6.793,6.793L7.931,40.03a4.923,4.923,0,0,1,6.962,6.962L13.754,48.13l6.793,6.793L54.923,20.547ZM18.194,48.018A8.145,8.145,0,0,0,6.9,36.728L4.552,34.376,34.376,4.552,36.728,6.9a8.145,8.145,0,0,0,11.29,11.29l2.353,2.353L20.547,50.371Z" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_61" data-name="Group 61" transform="translate(29.793 20.568)">
+    <g id="Group_60" data-name="Group 60" transform="translate(0 0)">
+      <rect id="Rectangle_166" data-name="Rectangle 166" width="3.219" height="3.231" transform="translate(0 2.276) rotate(-45)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_63" data-name="Group 63" transform="translate(25.224 15.997)">
+    <g id="Group_62" data-name="Group 62" transform="translate(0 0)">
+      <rect id="Rectangle_167" data-name="Rectangle 167" width="3.219" height="3.231" transform="translate(0 2.276) rotate(-45)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_65" data-name="Group 65" transform="translate(34.364 25.138)">
+    <g id="Group_64" data-name="Group 64" transform="translate(0 0)">
+      <rect id="Rectangle_168" data-name="Rectangle 168" width="3.219" height="3.231" transform="translate(0 2.276) rotate(-45)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>

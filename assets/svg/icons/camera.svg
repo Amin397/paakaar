@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="98" height="61.753" viewBox="0 0 98 61.753">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.542" y1="1.661" x2="0.542" y2="0.229" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00efd1"/>
+      <stop offset="1" stop-color="#00acea"/>
+    </linearGradient>
+  </defs>
+  <path id="video-camera" d="M96.983,5.508a2.078,2.078,0,0,0-2.055-.037L72.443,17.748V10.381A10.393,10.393,0,0,0,62.061,0H10.382A10.393,10.393,0,0,0,0,10.381v40.99A10.393,10.393,0,0,0,10.382,61.753h51.68A10.393,10.393,0,0,0,72.443,51.371V44.139L94.929,56.416A2.076,2.076,0,0,0,98,54.594V7.293a2.076,2.076,0,0,0-1.017-1.785ZM68.289,51.372A6.235,6.235,0,0,1,62.06,57.6H10.382a6.236,6.236,0,0,1-6.229-6.229V10.381a6.236,6.236,0,0,1,6.229-6.229h51.68a6.237,6.237,0,0,1,6.229,6.229Zm25.559-.277L72.443,39.408V22.479L93.848,10.792Zm0,0" transform="translate(-0.001 0)" fill="url(#linear-gradient)"/>
+</svg>
