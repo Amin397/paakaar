@@ -20,6 +20,7 @@ class ProjectRequestUtils extends RequestsUtil {
     // String nationalCode,
     // required String referer,
     required String code,
+    required String moarefiCode,
     required String mobile,
     required String gender,
   }) async {
@@ -29,6 +30,7 @@ class ProjectRequestUtils extends RequestsUtil {
       body: {
         "fname": name,
         "lname": lastName,
+        "moarefiCode": moarefiCode,
         // "fatherName": fatherName,
         // "nationalCode": nationalCode,
         "gender": gender,
@@ -327,6 +329,13 @@ class ProjectRequestUtils extends RequestsUtil {
     );
   }
 
+  Future<ApiResult> getAppVersion() async {
+    return await makeRequest(
+      webMethod: WebMethods.appVersion,
+      webController: WebControllers.AppVersion,
+    );
+  }
+
   Future<ApiResult> getOptions(int id) async {
     return await makeRequest(
       body: {
@@ -432,7 +441,7 @@ class ProjectRequestUtils extends RequestsUtil {
 
   Future<ApiResult> saveProfile({
     required List<int> listOfSubSubGroups,
-    XFile? image,
+    dynamic image,
     required Map<String, String> listOfSocialMedia,
     required String bio,
     required String password,
@@ -481,11 +490,14 @@ class ProjectRequestUtils extends RequestsUtil {
         'stateId': stateId.toString(),
         'cityId': cityId.toString(),
         'region': region.toString(),
-        'avatar': image is XFile
-            ? base64Encode(
-                await image.readAsBytes(),
-              )
-            : null,
+        'avatar':(image is XFile)?base64Encode(
+          await image.readAsBytes(),
+        ):(image == '1')?'1':''
+        // 'avatar': image is XFile
+        //     ? base64Encode(
+        //         await image.readAsBytes(),
+        //       )
+        //     : null,
       },
       webController: WebControllers.Individuals,
       webMethod: WebMethods.saveProfile,

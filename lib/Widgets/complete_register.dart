@@ -28,6 +28,7 @@ class CompleteRegister extends StatefulWidget {
 class _CompleteRegisterState extends State<CompleteRegister> {
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
+  TextEditingController moarefiCodeTextController = TextEditingController();
   TextEditingController fatherNameController = TextEditingController();
   TextEditingController nationalCodeController = TextEditingController();
   TextEditingController refererController = TextEditingController();
@@ -35,6 +36,7 @@ class _CompleteRegisterState extends State<CompleteRegister> {
 
   FocusNode nameFocusNode = FocusNode();
   FocusNode lastNameFocusNode = FocusNode();
+  FocusNode moarefiCodeFocusNode = FocusNode();
   FocusNode fatherNameFocusNode = FocusNode();
   FocusNode nationalCodeFocusNode = FocusNode();
   FocusNode refererFocusNode = FocusNode();
@@ -44,7 +46,7 @@ class _CompleteRegisterState extends State<CompleteRegister> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * .8,
+      height: Get.height * .5,
       width: Get.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -67,17 +69,17 @@ class _CompleteRegisterState extends State<CompleteRegister> {
                     color: ColorUtils.textColor,
                   ),
                 ),
-                const SizedBox(
-                  height: 12.0,
-                ),
+                // const SizedBox(
+                //   height: 12.0,
+                // ),
                 body(),
-                const SizedBox(
-                  height: 12.0,
-                ),
+                // const SizedBox(
+                //   height: 12.0,
+                // ),
                 finalBtn(),
-                const SizedBox(
-                  height: 12.0,
-                ),
+                // const SizedBox(
+                //   height: 12.0,
+                // ),
               ],
             ),
           ),
@@ -100,10 +102,14 @@ class _CompleteRegisterState extends State<CompleteRegister> {
     return Column(
       children: [
         name(),
-        SizedBox(
-          height: Get.height / 50,
-        ),
+        // SizedBox(
+        //   height: Get.height / 50,
+        // ),
         lastName(),
+        // SizedBox(
+        //   height: Get.height / 50,
+        // ),
+        moarefiCode(),
         // SizedBox(
         //   height: Get.height / 50,
         // ),
@@ -130,8 +136,8 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         //   height: Get.height / 50,
         // ),
         genderSelect(),
-        const SizedBox(
-          height: 150.0,
+        SizedBox(
+          height: Get.height * .1,
         ),
       ],
     );
@@ -355,16 +361,16 @@ class _CompleteRegisterState extends State<CompleteRegister> {
       switch (list.length) {
         case 1:
           if (list[0] == '0') {
-            refererController.text = '0';
+            moarefiCodeTextController.text = '0';
           } else {
-            refererController.clear();
+            moarefiCodeTextController.clear();
           }
           break;
         case 2:
           if (list[1] == '9') {
-            refererController.text = '09';
+            moarefiCodeTextController.text = '09';
           } else {
-            refererController.text = '0';
+            moarefiCodeTextController.text = '0';
           }
 
           break;
@@ -379,21 +385,19 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         case 11:
           list.removeAt(0);
           list.removeAt(0);
-          setState(() {
-            refererController.text = '09' + list.join('');
-          });
+          moarefiCodeTextController.text = '09' + list.join('');
           break;
       }
-      if (refererController.text.length == 11) {
-        Focus.maybeOf(context)?.requestFocus(FocusNode());
+      if (moarefiCodeTextController.text.length == 11) {
       } else {
         Future.delayed(
           Duration.zero,
-          () => refererController.selection = TextSelection.fromPosition(
-            TextPosition(
-              offset: refererController.text.length,
-            ),
-          ),
+              () => moarefiCodeTextController.selection =
+              TextSelection.fromPosition(
+                TextPosition(
+                  offset: moarefiCodeTextController.text.length,
+                ),
+              ),
         );
       }
     }
@@ -410,6 +414,7 @@ class _CompleteRegisterState extends State<CompleteRegister> {
       // fatherName: fatherNameController.text,
       // referer: refererController.text,
       code: widget.code,
+      moarefiCode: moarefiCodeTextController.text.isEmpty? '':moarefiCodeTextController.text,
       mobile: widget.mobile,
     )
         .then((ApiResult result) async {
@@ -430,5 +435,16 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         );
       }
     });
+  }
+
+
+  Widget moarefiCode() {
+    return _textInput(
+      onChange: onChange,
+      maxLen: 11,
+      controller: moarefiCodeTextController,
+      focusNode: moarefiCodeFocusNode,
+      name: "کد معرف (اختیاری)",
+    );
   }
 }

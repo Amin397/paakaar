@@ -19,6 +19,7 @@ class UserStream {
   UserModel? user = UserModel();
 
   void changeUser(UserModel user1) {
+    user = null;
     user = user1;
     sync();
   }

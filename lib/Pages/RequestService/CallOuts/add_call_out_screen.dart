@@ -551,7 +551,8 @@ class AddCallOutScreen extends StatelessWidget {
                             ),
                           )
                         : AutoSizeText(
-                            'افزودن عکس برای ثبت فراخوان',
+                            'افزودن عکس برای ثبت فراخوان \n\n (اختیاری)',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: ColorUtils.textColor,
                             ),
@@ -578,7 +579,7 @@ class AddCallOutScreen extends StatelessWidget {
         page = buildSecondPage();
         break;
       default:
-        page = buildThirdPage();
+        page = buildThirdPage(context: context);
         break;
     }
     return Padding(
@@ -603,7 +604,7 @@ class AddCallOutScreen extends StatelessWidget {
     return 4;
   }
 
-  Widget buildThirdPage() {
+  Widget buildThirdPage({required BuildContext context}) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -626,8 +627,10 @@ class AddCallOutScreen extends StatelessWidget {
                       buildDay(
                         title: "امروز",
                         id: 0,
+                        context: context,
                       ),
                       buildDay(
+                        context: context,
                         title: "فردا",
                         id: 1,
                       ),
@@ -638,10 +641,12 @@ class AddCallOutScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       buildDay(
+                        context: context,
                         title: "پس فردا",
                         id: 2,
                       ),
                       buildDay(
+                        context: context,
                         title: controller.dayId == 3
                             ? controller.selectedDay
                             : "انتخاب روز",
@@ -759,11 +764,13 @@ class AddCallOutScreen extends StatelessWidget {
   Widget buildDay({
     required int id,
     required String title,
+    required BuildContext context,
   }) {
     return GestureDetector(
       onTap: () async {
         if (id == 3) {
           Jalali? picked = await showPersianDatePicker(
+            errorFormatText: 'اعداد را به زبان لاتین وارد کنید',
             initialDate: Jalali(
               int.parse(
                 controller.selectedDay.split('/').first,
@@ -775,9 +782,10 @@ class AddCallOutScreen extends StatelessWidget {
                 controller.selectedDay.split('/')[2],
               ),
             ),
+
             firstDate: Jalali.now(),
             lastDate: Jalali.now().add(years: 1),
-            context: Get.context!,
+            context: context,
           );
           if (picked != null) {
             controller.selectedDay = picked.jDate();

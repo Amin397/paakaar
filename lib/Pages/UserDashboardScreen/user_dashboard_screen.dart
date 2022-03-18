@@ -74,8 +74,9 @@ class UserDashboardScreen extends StatelessWidget {
                   curveType: CurveType.concave,
                   width: Get.width / 1,
                   child: Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         if (Globals.userStream.user?.avatar is String)
                           ClipRRect(
@@ -93,23 +94,27 @@ class UserDashboardScreen extends StatelessWidget {
                             size: Get.width / 8,
                             color: ColorUtils.mainRed,
                           ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              Globals.userStream.user!.fullName,
-                              style: TextStyle(
-                                color: ColorUtils.black,
-                                fontSize: 18.0,
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(6.0),
+                            height: double.maxFinite,
+                            width: double.maxFinite,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: AutoSizeText(
+                                Globals.userStream.user!.fullName,
+                                maxFontSize: 20.0,
+                                maxLines: 2,
+                                minFontSize: 14.0,
+                                style: const TextStyle(
+                                  color: ColorUtils.black,
+                                  fontSize: 18.0,
+                                ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                        Spacer(),
+                        // const Spacer(),
                         Icon(
                           Icons.arrow_right,
                           color: ColorUtils.green,

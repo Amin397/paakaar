@@ -457,11 +457,15 @@ class RequestServiceController extends GetxController {
       }
       isDataLoaded.value = true;
       listOfCallOuts = [];
-      field = Globals.userStream.user!.specialities!.last;
+      if(Globals.userStream.user!.specialities!.isNotEmpty){
+        field = Globals.userStream.user!.specialities!.last;
+      }
       selectGroupsByUser();
-      getCallOuts(
-        refresh: false,
-      );
+      if(Globals.userStream.user!.specialities!.isNotEmpty){
+        getCallOuts(
+          refresh: false,
+        );
+      }
       // getExperts();
     } else {
       specialitiesId = Get.arguments['last'].id;
@@ -674,6 +678,17 @@ class RequestServiceController extends GetxController {
           field:field,
         ),
       ),
-    );
+    ).then((value) {
+      if(!value['back']){
+        if (id != 2) {
+          Get.toNamed(
+            RoutingUtils.addCallOut.name,
+            arguments: {
+              'field': field,
+            },
+          );
+        }
+      }
+    });
   }
 }

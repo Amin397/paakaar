@@ -13,7 +13,6 @@ import 'package:paakaar/Pages/MembershipInfoScreen/membership_info_screen.dart';
 import 'package:paakaar/Plugins/get/get.dart';
 import 'package:paakaar/Plugins/neu/flutter_neumorphic.dart';
 import 'package:paakaar/Plugins/neumorphic-package-by-serge-software/neumorphic-card.dart';
-import 'package:paakaar/Utils/Api/Base/base_request_util.dart';
 import 'package:paakaar/Utils/color_utils.dart';
 import 'package:paakaar/Utils/image_utils.dart';
 import 'package:paakaar/Utils/routing_utils.dart';
@@ -133,30 +132,32 @@ class CustomDrawerWidget extends StatelessWidget {
                               );
                             },
                           ),
-                        if (Globals.userStream.user!.role!.membershipId != 1)
-                          buildMenuItem(
-                            icon: Ionicons.checkmark_done_outline,
-                            title: "تکمیل پروفایل",
-                            onTap: () {
-                              drawerController.scaffoldKey.currentState
-                                  ?.openEndDrawer();
-                              Get.toNamed(
-                                RoutingUtils.completeProfile.name,
-                              );
-                            },
-                          ),
-                        ViewUtils.sizedBox(),
+                        // if (Globals.userStream.user!.role!.membershipId != 1)
+                        //   buildMenuItem(
+                        //     icon: Ionicons.checkmark_done_outline,
+                        //     title: "تکمیل پروفایل",
+                        //     onTap: () {
+                        //       drawerController.scaffoldKey.currentState
+                        //           ?.openEndDrawer();
+                        //       Get.toNamed(
+                        //         RoutingUtils.completeProfile.name,
+                        //       );
+                        //     },
+                        //   ),
+                        // ViewUtils.sizedBox(),
                         if (Globals.userStream.user!.role!.membershipId !=
                             1) ...[
                           buildMenuItem(
                             icon: Ionicons.add,
                             title: "ثبت آگهی",
                             onTap: () {
+                              drawerController.scaffoldKey.currentState
+                                  ?.openEndDrawer();
                               drawerController.getCanAddAdd();
                             },
                           ),
-                          ViewUtils.sizedBox(),
                         ],
+                          ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.flag_outline,
                           title: "ثبت فراخوان",
@@ -169,6 +170,7 @@ class CustomDrawerWidget extends StatelessWidget {
                             drawerController.getCanAddCall();
                           },
                         ),
+                        ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.bookmark_outline,
                           title: "نشان شده ها",
@@ -184,12 +186,12 @@ class CustomDrawerWidget extends StatelessWidget {
                         ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.people_outline,
-                          title: "درباره تیتراژ",
+                          title: "درباره پاکار",
                           onTap: () {
                             drawerController.scaffoldKey.currentState
                                 ?.openEndDrawer();
                             launch(
-                              'https://titraj.negaapps.ir/about',
+                              'https://titrazhe.com/about',
                             );
                           },
                         ),
@@ -211,24 +213,24 @@ class CustomDrawerWidget extends StatelessWidget {
                         ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.enter_outline,
-                          title: "ورود به سایت تیتراژ",
+                          title: "ورود به سایت پاکار",
                           onTap: () {
                             drawerController.scaffoldKey.currentState
                                 ?.openEndDrawer();
                             launch(
-                              'https://titraj.negaapps.ir/',
+                              'https://paakaar.com/',
                             );
                           },
                         ),
                         ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.share_social_outline,
-                          title: "شبکه های اجتماعی تیتراژ",
+                          title: "شبکه های اجتماعی پاکار",
                           onTap: () {
                             drawerController.scaffoldKey.currentState
                                 ?.openEndDrawer();
                             launch(
-                              'https://titraj.negaapps.ir/about',
+                              'https://paakaar.com/about',
                             );
                           },
                         ),
@@ -262,216 +264,20 @@ class CustomDrawerWidget extends StatelessWidget {
 
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: TextButton(
-
-                            onPressed: () {
-                              if (Globals.developerTeam.tapCount < 8) {
-                                Globals.developerTeam.addCount();
-                              } else {
-                                Globals.developerTeam.resetCount();
-                                showModalBottomSheet(
-                                  context: Get.context!,
-                                  backgroundColor: Colors.transparent,
-                                  builder: (BuildContext context) => Container(
-                                    color: Colors.white,
-                                    height: Get.height * .3,
-                                    width: Get.width,
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'تیم برنامه نویسی پروژه',
-                                          style: TextStyle(
-                                            color: ColorUtils.textColor,
-                                            fontSize: 12.0,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 12.0,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            height: double.maxFinite,
-                                            width: double.maxFinite,
-                                            child: Column(
-                                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    height: double.maxFinite,
-                                                    width: double.maxFinite,
-                                                    child: Row(
-                                                      children: [
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            height: double
-                                                                .maxFinite,
-                                                            width: double
-                                                                .maxFinite,
-                                                            child: Column(
-                                                              children: [
-                                                                const Text(
-                                                                  'Nexolas',
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      Get.height *
-                                                                          .02,
-                                                                ),
-                                                                Lottie.asset(
-                                                                  'assets/animations/developer.json',
-                                                                  height:
-                                                                      Get.width *
-                                                                          .15,
-                                                                  width:
-                                                                      Get.width *
-                                                                          .15,
-                                                                ),
-                                                                IconButton(
-                                                                  onPressed:
-                                                                      () async{
-                                                                    launch(
-                                                                      'https://instagram.com/navid_nexolas?utm_medium=copy_link',
-                                                                    );
-                                                                  },
-                                                                  icon: Icon(
-                                                                    Icons.link,
-                                                                    color: ColorUtils
-                                                                        .myRed,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            height: double
-                                                                .maxFinite,
-                                                            width: double
-                                                                .maxFinite,
-                                                            child: Column(
-                                                              children: [
-                                                                const Text(
-                                                                  'Angry Flutter',
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      Get.height *
-                                                                          .02,
-                                                                ),
-                                                                Lottie.asset(
-                                                                  'assets/animations/developer.json',
-                                                                  height:
-                                                                      Get.width *
-                                                                          .15,
-                                                                  width:
-                                                                      Get.width *
-                                                                          .15,
-                                                                ),
-                                                                IconButton(
-                                                                  onPressed:
-                                                                      () async{
-                                                                        launch(
-                                                                          'https://instagram.com/angry.flutter?utm_medium=copy_link',
-                                                                        );
-                                                                  },
-                                                                  icon: Icon(
-                                                                    Icons.link,
-                                                                    color: ColorUtils
-                                                                        .myRed,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            height: double
-                                                                .maxFinite,
-                                                            width: double
-                                                                .maxFinite,
-                                                            child: Column(
-                                                              children: [
-                                                                const Text(
-                                                                  'Parsa.Best',
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      Get.height *
-                                                                          .02,
-                                                                ),
-                                                                Lottie.asset(
-                                                                  'assets/animations/developer.json',
-                                                                  height:
-                                                                      Get.width *
-                                                                          .15,
-                                                                  width:
-                                                                      Get.width *
-                                                                          .15,
-                                                                ),
-                                                                IconButton(
-                                                                  onPressed:
-                                                                      ()async {
-                                                                        launch(
-                                                                          'https://instagram.com/parsa._.barati?utm_medium=copy_link',
-                                                                        );
-                                                                      },
-                                                                  icon: Icon(
-                                                                    Icons.link,
-                                                                    color: ColorUtils
-                                                                        .myRed,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                const Divider(),
-                                                Text(
-                                                  'Negarineh Team',
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorUtils.textColor,
-                                                      fontSize: 12.0),
-                                                ),
-                                                // Expanded(
-                                                //   child: Container(
-                                                //     height: double.maxFinite,
-                                                //     width: double.maxFinite,
-                                                //     child: const Align(
-                                                //       alignment: Alignment.bottomCenter,
-                                                //       child:
-                                                //     ),
-                                                //   ),
-                                                // )
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }
+                          child: GestureDetector(
+                            onTap: (){
+                              showDeveloperAlert();
                             },
                             child: const Text(
-                              '2.3.5',
+                              '2.4.5',
                               style: TextStyle(
                                 color: Colors.black26,
                                 fontSize: 10.0,
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        ViewUtils.sizedBox(),
                       ],
                     ),
                   ),
@@ -485,7 +291,6 @@ class CustomDrawerWidget extends StatelessWidget {
   }
 
   Widget buildUser() {
-    print(Globals.userStream.user?.avatar);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         if (constraints.maxWidth > 480.0) {
@@ -540,10 +345,11 @@ class CustomDrawerWidget extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
-                              Globals.userStream.user!.fullName,
-                              style: const TextStyle(
+                              // Globals.userStream.user!.fullName,
+                              'تکمیل پروفایل',
+                              style: TextStyle(
                                 color: ColorUtils.black,
                                 fontSize: 18.0,
                               ),
@@ -621,50 +427,52 @@ class CustomDrawerWidget extends StatelessWidget {
                   ),
                   curveType: CurveType.concave,
                   width: Get.width / 1.5,
-                  child: Container(
-                    // padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        if (Globals.userStream.user?.avatar is String)
-                          ClipRRect(
-                            child: Image.network(
-                              Globals.userStream.user!.avatar!,
-                              width: Get.width / 8,
-                              fit: BoxFit.fill,
-                              height: Get.width / 8,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (Globals.userStream.user?.avatar is String)
+                        ClipRRect(
+                          child: Image.network(
+                            Globals.userStream.user!.avatar!,
+                            width: Get.width / 8,
+                            fit: BoxFit.fill,
+                            height: Get.width / 8,
                           ),
-                        if (Globals.userStream.user?.avatar == null)
-                          Icon(
-                            Ionicons.person_outline,
-                            size: Get.width * .01,
-                            color: ColorUtils.mainRed,
-                          ),
-                        const SizedBox(
-                          width: 8.0,
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              Globals.userStream.user!.fullName,
-                              style: const TextStyle(
+                      if (Globals.userStream.user?.avatar == null)
+                        Icon(
+                          Ionicons.person_outline,
+                          size: Get.width * .01,
+                          color: ColorUtils.mainRed,
+                        ),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(4.0),
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                          child: const Align(
+                            alignment: Alignment.centerRight,
+                            child: AutoSizeText(
+                              // Globals.userStream.user!.fullName,
+                              'تکمیل پروفایل',
+                              maxLines: 2,
+                              maxFontSize: 20.0,
+                              minFontSize: 14.0,
+                              style: TextStyle(
                                 color: ColorUtils.black,
                                 fontSize: 18.0,
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                        const Spacer(),
-                        Icon(
-                          Icons.arrow_right,
-                          color: ColorUtils.green,
-                          size: Get.width / 12,
-                        ),
-                      ],
-                    ),
+                      ),
+                      Icon(
+                        Icons.arrow_right,
+                        color: ColorUtils.green,
+                        size: Get.width / 12,
+                      ),
+                    ],
                   ),
                 ),
                 Positioned(
@@ -760,5 +568,205 @@ class CustomDrawerWidget extends StatelessWidget {
       ),
       height: Get.height / 12,
     );
+  }
+
+  void showDeveloperAlert() {
+    if (Globals.developerTeam.tapCount < 10) {
+      Globals.developerTeam.addCount();
+    } else {
+      Globals.developerTeam.resetCount();
+      showModalBottomSheet(
+        context: Get.context!,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) => Container(
+          color: Colors.white,
+          height: Get.height * .3,
+          width: Get.width,
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text(
+                'تیم برنامه نویسی پروژه',
+                style: TextStyle(
+                  color: ColorUtils.textColor,
+                  fontSize: 12.0,
+                ),
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: double.maxFinite,
+                  width: double.maxFinite,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: SizedBox(
+                                  height: double
+                                      .maxFinite,
+                                  width: double
+                                      .maxFinite,
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Nexolas',
+                                      ),
+                                      SizedBox(
+                                        height:
+                                        Get.height *
+                                            .02,
+                                      ),
+                                      Lottie.asset(
+                                        'assets/animations/developer.json',
+                                        height:
+                                        Get.width *
+                                            .15,
+                                        width:
+                                        Get.width *
+                                            .15,
+                                      ),
+                                      IconButton(
+                                        onPressed:
+                                            () async{
+                                          launch(
+                                            'https://instagram.com/navid_nexolas?utm_medium=copy_link',
+                                          );
+                                        },
+                                        icon: Icon(
+                                          Icons.link,
+                                          color: ColorUtils
+                                              .myRed,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: SizedBox(
+                                  height: double
+                                      .maxFinite,
+                                  width: double
+                                      .maxFinite,
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Angry Flutter',
+                                      ),
+                                      SizedBox(
+                                        height:
+                                        Get.height *
+                                            .02,
+                                      ),
+                                      Lottie.asset(
+                                        'assets/animations/developer.json',
+                                        height:
+                                        Get.width *
+                                            .15,
+                                        width:
+                                        Get.width *
+                                            .15,
+                                      ),
+                                      IconButton(
+                                        onPressed:
+                                            () async{
+                                          launch(
+                                            'https://instagram.com/angry.flutter?utm_medium=copy_link',
+                                          );
+                                        },
+                                        icon: Icon(
+                                          Icons.link,
+                                          color: ColorUtils
+                                              .myRed,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: SizedBox(
+                                  height: double
+                                      .maxFinite,
+                                  width: double
+                                      .maxFinite,
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Parsa.Best',
+                                      ),
+                                      SizedBox(
+                                        height:
+                                        Get.height *
+                                            .02,
+                                      ),
+                                      Lottie.asset(
+                                        'assets/animations/developer.json',
+                                        height:
+                                        Get.width *
+                                            .15,
+                                        width:
+                                        Get.width *
+                                            .15,
+                                      ),
+                                      IconButton(
+                                        onPressed:
+                                            ()async {
+                                          launch(
+                                            'https://instagram.com/parsa._.barati?utm_medium=copy_link',
+                                          );
+                                        },
+                                        icon: Icon(
+                                          Icons.link,
+                                          color: ColorUtils
+                                              .myRed,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      Text(
+                        'Negarineh Team',
+                        style: TextStyle(
+                            color:
+                            ColorUtils.textColor,
+                            fontSize: 12.0),
+                      ),
+                      // Expanded(
+                      //   child: Container(
+                      //     height: double.maxFinite,
+                      //     width: double.maxFinite,
+                      //     child: const Align(
+                      //       alignment: Alignment.bottomCenter,
+                      //       child:
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

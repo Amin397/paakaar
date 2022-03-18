@@ -11,9 +11,10 @@ import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 
 class UpgradePlanDialog extends StatelessWidget {
-  UpgradePlanDialog({Key? key , this.text , this.fromDashboard}) : super(key: key);
+  UpgradePlanDialog({Key? key , this.text , this.fromDashboard , this.topText}) : super(key: key);
 
   String? text;
+  String? topText;
   bool? fromDashboard;
 
   @override
@@ -30,13 +31,29 @@ class UpgradePlanDialog extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 width: Get.width / 1.2,
-                height: Get.height * .4,
+                height: Get.height * .45,
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: [
+
                     LottieBuilder.asset(
                       ImageUtils.levelUp,
                     ),
+                    SizedBox(
+                      width: Get.width / 1.4,
+                      child: Center(
+                        child: AutoSizeText(
+                          topText!,
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: ColorUtils.textColor,
+                            height: 1.5,
+                          ),
+                          minFontSize: 1.0,
+                        ),
+                      ),
+                    ),
+                    ViewUtils.sizedBox(),
                     // if (Globals.userStream.user?.isExpired == false)
                     Positioned(
                       top: 8,
@@ -55,10 +72,12 @@ class UpgradePlanDialog extends StatelessWidget {
                         ),
                       ),
                     ),
+                    ViewUtils.sizedBox(),
                     Positioned(
                       bottom: 0.0,
                       child: Column(
                         children: [
+                          ViewUtils.sizedBox(),
                           Text(
                             "ارتقا عضویت",
                             style: TextStyle(
@@ -67,7 +86,7 @@ class UpgradePlanDialog extends StatelessWidget {
                             ),
                           ),
                           ViewUtils.sizedBox(),
-                          Container(
+                          SizedBox(
                             width: Get.width / 1.4,
                             child: Center(
                               child: AutoSizeText(
@@ -82,7 +101,7 @@ class UpgradePlanDialog extends StatelessWidget {
                             ),
                           ),
                           ViewUtils.sizedBox(),
-                          Container(
+                          SizedBox(
                             width: Get.width / 1.4,
                             child: WidgetUtils.button(
                               text: "انتخاب اشتراک",
@@ -122,84 +141,96 @@ class UpgradePlanDialog extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: [
+
                     LottieBuilder.asset(
                       ImageUtils.levelUp,
                     ),
+                    SizedBox(
+                      width: Get.width / 1.4,
+                      child: Center(
+                        child: AutoSizeText(
+                          topText!,
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: ColorUtils.textColor,
+                            height: 1.5,
+                          ),
+                          minFontSize: 1.0,
+                        ),
+                      ),
+                    ),
+                    ViewUtils.sizedBox(),
                     // if (Globals.userStream.user?.isExpired == false)
                     Positioned(
                       top: 8,
                       right: 8,
                       child: GestureDetector(
                         onTap: () {
-                          if(fromDashboard!){
-                            Get.close(1);
-                          }else{
-                            Get.close(1);
-                            Get.back();
-                          }
+                          // if(fromDashboard!){
+                          //   Get.close(1);
+                          // }else{
+                          //   Get.close(1);
+                          Get.back();
+                          // }
                         },
                         child: const Icon(
                           Ionicons.close_outline,
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: double.maxFinite,
-                        height: Get.height * .3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "ارتقا عضویت",
-                              style: TextStyle(
-                                color: ColorUtils.mainRed,
-                                fontSize: 15.0,
-                              ),
+                    ViewUtils.sizedBox(),
+                    Positioned(
+                      bottom: 0.0,
+                      child: Column(
+                        children: [
+                          ViewUtils.sizedBox(),
+                          Text(
+                            "ارتقا عضویت",
+                            style: TextStyle(
+                              color: ColorUtils.red,
+                              fontSize: 15.0,
                             ),
-                            ViewUtils.sizedBox(),
-                            Container(
-                              width: Get.width / 1.4,
-                              child: Center(
-                                child: AutoSizeText(
-                                  text!,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: ColorUtils.textColor,
-                                    height: 1.5,
-                                  ),
-                                  minFontSize: 1.0,
+                          ),
+                          ViewUtils.sizedBox(),
+                          SizedBox(
+                            width: Get.width / 1.4,
+                            child: Center(
+                              child: AutoSizeText(
+                                text!,
+                                maxLines: 2,
+                                style: TextStyle(
+                                  color: ColorUtils.textColor,
+                                  height: 1.5,
                                 ),
+                                minFontSize: 1.0,
                               ),
                             ),
-                            ViewUtils.sizedBox(),
-                            Container(
-                              width: Get.width / 1.4,
-                              child: WidgetUtils.button(
-                                text: "انتخاب اشتراک",
-                                onTap: () {
-                                  if(fromDashboard!){
-                                    Get.back();
-                                    Get.toNamed(
-                                      RoutingUtils.upgradePlan.name,
-                                    );
-                                  }else{
-                                    Get.back();
-                                    Get.back();
-                                    Get.toNamed(
-                                      RoutingUtils.upgradePlan.name,
-                                    );
-                                  }
-                                },
-                              ),
+                          ),
+                          ViewUtils.sizedBox(),
+                          SizedBox(
+                            width: Get.width / 1.4,
+                            child: WidgetUtils.button(
+                              text: "انتخاب اشتراک",
+                              onTap: () {
+                                if(fromDashboard!){
+                                  Get.back();
+                                  Get.toNamed(
+                                    RoutingUtils.upgradePlan.name,
+                                  );
+                                }else{
+                                  Get.back();
+                                  Get.back();
+                                  Get.toNamed(
+                                    RoutingUtils.upgradePlan.name,
+                                  );
+                                }
+                              },
                             ),
-                            ViewUtils.sizedBox(75),
-                          ],
-                        ),
+                          ),
+                          ViewUtils.sizedBox(75),
+                        ],
                       ),
-                    )
-
+                    ),
                   ],
                 ),
               ),

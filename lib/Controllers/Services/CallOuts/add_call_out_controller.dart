@@ -178,8 +178,11 @@ class AddCallOutController extends GetxController {
     );
   }
 
+  ImageCropper? cropper = ImageCropper();
+
   void setPicture({XFile? image}) async {
-    File? croppedFile = await ImageCropper.cropImage(
+
+    File? croppedFile = await cropper!.cropImage(
       sourcePath: image!.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.ratio16x9,
@@ -203,6 +206,7 @@ class AddCallOutController extends GetxController {
       fileImage = XFile(
         croppedFile.path,
       );
+      // Get.back();
       Get.back();
     }
     update();
@@ -298,17 +302,18 @@ class AddCallOutController extends GetxController {
       // Use the uri and warn the user, if it is not correct
 
       Map<String, dynamic> myMap = jsonDecode(uri!.queryParameters['data']!);
+      print(myMap);
+
+
       if (myMap['status']) {
         Get.back();
         Get.back();
         Get.back();
         Globals.userStream.addCallOut();
-
+        Get.offAndToNamed(RoutingUtils.dashboard.name , );
         ViewUtils.showSuccessDialog(
           'پرداخت شما با موفقیت انجام شد!',
         );
-
-        Get.offAndToNamed(RoutingUtils.dashboard.name , );
       } else {
         ViewUtils.showErrorDialog('پرداخت نا موفق ، فراخوان ثبت نشد');
       }

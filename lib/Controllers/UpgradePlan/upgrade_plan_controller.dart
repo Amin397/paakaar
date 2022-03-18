@@ -143,7 +143,7 @@ class UpgradePlanController extends GetxController {
         );
         Get.back();
         Get.toNamed(
-          RoutingUtils.completeProfile.name,
+          RoutingUtils.dashboard.name,
         );
         Get.dialog(
           CompleteProfileDialog(),

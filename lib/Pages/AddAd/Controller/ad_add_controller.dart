@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -168,8 +167,10 @@ class AdAddController extends GetxController {
     );
   }
 
+  ImageCropper cropper = ImageCropper();
+
   void setPicture({XFile? image}) async {
-    File? croppedFile = await ImageCropper.cropImage(
+    File? croppedFile = await cropper.cropImage(
       sourcePath: image!.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.ratio16x9,
@@ -189,6 +190,7 @@ class AdAddController extends GetxController {
         minimumAspectRatio: 1.0,
       ),
     );
+
     if (croppedFile is File) {
       fileImage = XFile(
         croppedFile.path,
@@ -224,12 +226,17 @@ class AdAddController extends GetxController {
         fieldId:
             listOfFields.singleWhere((element) => element.isSelected.value).id,
         price: priceTextController.text.replaceAll(',', ''),
-        stateId:(listOfStates.any((element) => element.isSelected))? listOfStates.singleWhere((element) => element.isSelected).id:0,
-        cityId:(listOfStates.any((element) => element.isSelected && element.id != 0))? listOfStates
-            .singleWhere((element) => element.isSelected)
-            .listOfCities
-            .singleWhere((element) => element.isSelected)
-            .id:0,
+        stateId: (listOfStates.any((element) => element.isSelected))
+            ? listOfStates.singleWhere((element) => element.isSelected).id
+            : 0,
+        cityId: (listOfStates
+                .any((element) => element.isSelected && element.id != 0))
+            ? listOfStates
+                .singleWhere((element) => element.isSelected)
+                .listOfCities
+                .singleWhere((element) => element.isSelected)
+                .id
+            : 0,
         title: titleTextController.text,
         link: linkTextController.text,
         cover: (fileImage == null) ? '' : fileImage!,

@@ -84,7 +84,8 @@ class UpgradePlanScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Divider(
                               color: ColorUtils.mainRed.shade200,
                               thickness: 0.2,
@@ -147,7 +148,7 @@ class UpgradePlanScreen extends StatelessWidget {
                   ],
                 ),
                 ViewUtils.sizedBox(25),
-                Container(
+                SizedBox(
                   height: Get.height / 3,
                   child: Obx(
                     () => controller.isMemberShipsLoaded.isTrue
@@ -163,7 +164,7 @@ class UpgradePlanScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                   },
                   child: SizedBox(
@@ -176,8 +177,7 @@ class UpgradePlanScreen extends StatelessWidget {
                           height: double.maxFinite,
                           decoration: BoxDecoration(
                               color: Colors.red,
-                              borderRadius: BorderRadius.circular(8.0)
-                          ),
+                              borderRadius: BorderRadius.circular(8.0)),
                           child: const Center(
                             child: AutoSizeText(
                               'انصراف',
@@ -190,13 +190,14 @@ class UpgradePlanScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-
                         ),
-                        const SizedBox(width: 8.0,),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
                         Obx(
-                              () => Expanded(
+                          () => Expanded(
                             child: GestureDetector(
-                              onTap: ()=>controller.buyPlan(),
+                              onTap: () => controller.buyPlan(),
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 175),
                                 height: double.maxFinite,
@@ -206,11 +207,13 @@ class UpgradePlanScreen extends StatelessWidget {
                                 //   color: ColorUtils.black,
                                 // ),
                                 decoration: BoxDecoration(
-                                  color: controller.isMemberShipsLoaded.isTrue &&
-                                      controller.listOfMemberShips
-                                          .any((element) => element.isSelected.isTrue)
-                                      ? ColorUtils.green.shade600
-                                      : ColorUtils.green.withOpacity(0.5),
+                                  color:
+                                      controller.isMemberShipsLoaded.isTrue &&
+                                              controller.listOfMemberShips.any(
+                                                  (element) =>
+                                                      element.isSelected.isTrue)
+                                          ? ColorUtils.green.shade600
+                                          : ColorUtils.green.withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: Row(
@@ -220,9 +223,13 @@ class UpgradePlanScreen extends StatelessWidget {
                                       'خرید',
                                       maxLines: 1,
                                       style: TextStyle(
-                                        color: controller.isMemberShipsLoaded.isTrue &&
-                                            controller.listOfMemberShips
-                                                .any((element) => element.isSelected.isTrue) ? Colors.white : Colors.white.withOpacity(0.8),
+                                        color: controller.isMemberShipsLoaded
+                                                    .isTrue &&
+                                                controller.listOfMemberShips
+                                                    .any((element) => element
+                                                        .isSelected.isTrue)
+                                            ? Colors.white
+                                            : Colors.white.withOpacity(0.8),
                                         fontSize: 14.0,
                                       ),
                                     ),
@@ -274,7 +281,8 @@ class UpgradePlanScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Divider(
                               color: ColorUtils.mainRed.shade200,
                               thickness: 0.2,
@@ -356,7 +364,7 @@ class UpgradePlanScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                   },
                   child: SizedBox(
@@ -368,9 +376,8 @@ class UpgradePlanScreen extends StatelessWidget {
                           width: Get.width * .2,
                           height: double.maxFinite,
                           decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(8.0)
-                          ),
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(8.0)),
                           child: const Center(
                             child: AutoSizeText(
                               'انصراف',
@@ -383,13 +390,14 @@ class UpgradePlanScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-
                         ),
-                        const SizedBox(width: 8.0,),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
                         Obx(
                           () => Expanded(
                             child: GestureDetector(
-                              onTap: ()=>controller.buyPlan(),
+                              onTap: () => controller.buyPlan(),
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 175),
                                 height: double.maxFinite,
@@ -399,11 +407,13 @@ class UpgradePlanScreen extends StatelessWidget {
                                 //   color: ColorUtils.black,
                                 // ),
                                 decoration: BoxDecoration(
-                                  color: controller.isMemberShipsLoaded.isTrue &&
-                                      controller.listOfMemberShips
-                                          .any((element) => element.isSelected.isTrue)
-                                      ? ColorUtils.green.shade600
-                                      : ColorUtils.green.withOpacity(0.5),
+                                  color:
+                                      controller.isMemberShipsLoaded.isTrue &&
+                                              controller.listOfMemberShips.any(
+                                                  (element) =>
+                                                      element.isSelected.isTrue)
+                                          ? ColorUtils.green.shade600
+                                          : ColorUtils.green.withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: Row(
@@ -413,9 +423,13 @@ class UpgradePlanScreen extends StatelessWidget {
                                       'خرید',
                                       maxLines: 1,
                                       style: TextStyle(
-                                        color: controller.isMemberShipsLoaded.isTrue &&
-                                            controller.listOfMemberShips
-                                                .any((element) => element.isSelected.isTrue) ? Colors.white : Colors.white.withOpacity(0.8),
+                                        color: controller.isMemberShipsLoaded
+                                                    .isTrue &&
+                                                controller.listOfMemberShips
+                                                    .any((element) => element
+                                                        .isSelected.isTrue)
+                                            ? Colors.white
+                                            : Colors.white.withOpacity(0.8),
                                         fontSize: 14.0,
                                       ),
                                     ),
@@ -491,7 +505,8 @@ class UpgradePlanScreen extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             if (!membership.isDisabled.isTrue) {
-                              for (var element in controller.listOfMemberShips) {
+                              for (var element
+                                  in controller.listOfMemberShips) {
                                 element.isSelected.value = false;
                               }
                               membership.isSelected.value = true;
@@ -516,7 +531,8 @@ class UpgradePlanScreen extends StatelessWidget {
                             ),
                             height: Get.height / 18,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Row(
                                 children: [
                                   Column(

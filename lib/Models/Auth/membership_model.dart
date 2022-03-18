@@ -26,6 +26,7 @@ class MembershipModel {
     this.viewUpSliders,
     this.viewDownSliders,
     this.viewTvs,
+    this.isWorkerSpecialty,
   });
 
   RxBool isSelected = false.obs;
@@ -40,6 +41,7 @@ class MembershipModel {
   int? priceCallCount;
   int? callPrice;
   bool? isSpecial;
+  bool? isWorkerSpecialty;
   int? freeAdCount;
   int? priceAdCount;
   int? adPrice;
@@ -62,6 +64,7 @@ class MembershipModel {
     priceCallCount: json["price_call_count"],
     callPrice: json["call_price"],
     isSpecial: json["isSpecial"],
+    isWorkerSpecialty: json["isWorkerSpecialty"],
     freeAdCount: json["free_ad_count"],
     priceAdCount: json["price_ad_count"],
     adPrice: json["ad_price"],

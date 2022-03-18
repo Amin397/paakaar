@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChooseCallOutSourceAlert extends StatelessWidget {
-  final controller;
-
   ChooseCallOutSourceAlert({this.controller});
+  final controller;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class ChooseCallOutSourceAlert extends StatelessWidget {
       child: Container(
         width: Get.width,
         height: Get.height * .16,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.transparent,
         ),
         child: Row(
@@ -23,7 +22,7 @@ class ChooseCallOutSourceAlert extends StatelessWidget {
             Flexible(
               flex: 1,
               child: GestureDetector(
-                onTap: () => this.pickImage(
+                onTap: () => pickImage(
                   ImageSource.gallery,
                 ),
                 child: Container(
@@ -35,7 +34,7 @@ class ChooseCallOutSourceAlert extends StatelessWidget {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: const [
                       Text(
                         "گالری",
                         style: TextStyle(
@@ -53,7 +52,7 @@ class ChooseCallOutSourceAlert extends StatelessWidget {
             Flexible(
               flex: 1,
               child: GestureDetector(
-                onTap: () => this.pickImage(
+                onTap: () => pickImage(
                   ImageSource.camera,
                 ),
                 child: Container(
@@ -65,7 +64,7 @@ class ChooseCallOutSourceAlert extends StatelessWidget {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: const [
                       Text(
                         "دوربین",
                         style: TextStyle(

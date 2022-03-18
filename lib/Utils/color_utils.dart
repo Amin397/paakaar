@@ -93,7 +93,8 @@ class ColorUtils {
   static Color inActiveTextColor = Colors.grey.withOpacity(0.7);
 
   static MaterialColor mainRed = ColorUtil(0xff404040).toMaterial();
-  static MaterialColor myRed = ColorUtil(0xff7E1515).toMaterial();
+  // static MaterialColor myRed = ColorUtil(0xff7E1515).toMaterial();
+  static MaterialColor myRed = ColorUtil(0xfff7b522).toMaterial();
   static MaterialColor blue = ColorUtil(0xff3DB2FF).toMaterial();
 
   static const MaterialColor blackAccent = MaterialColor(

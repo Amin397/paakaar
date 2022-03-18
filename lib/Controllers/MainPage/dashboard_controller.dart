@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:get_storage/get_storage.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Models/MainPage/Field.dart';
 import 'package:paakaar/Models/MainPage/Tv.dart';
@@ -15,6 +16,7 @@ import 'package:paakaar/Utils/view_utils.dart';
 import 'package:paakaar/Widgets/upgrade_plan_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:frefresh/frefresh.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class DashboardController extends GetxController {
   ScrollController? scrollController;
@@ -101,7 +103,6 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-
     getScore();
     scrollController = ScrollController(initialScrollOffset: 0.0);
     tvListController = ScrollController(initialScrollOffset: 0.0);
@@ -126,7 +127,6 @@ class DashboardController extends GetxController {
     }
 
     allInits();
-
     super.onInit();
   }
 
@@ -195,18 +195,29 @@ class DashboardController extends GetxController {
   updateTVs({int? field}) {}
 
   void showUpgradePlanDialog() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      Get.dialog(
-        UpgradePlanDialog(
-          text: Globals.userStream.user?.isExpired == true
-              ? "تاریخ عضویت شما به پایان رسیده است"
-              : "شما میتوانید با ارتقا عضویت خود به قابلیت های بیشتری از اپلیکیشن دسترسی پیدا کنید",
-          fromDashboard: true,
-        ),
-        barrierColor: ColorUtils.black.withOpacity(0.5),
-        barrierDismissible: Globals.userStream.user?.isExpired == false,
-      );
-    });
+    final box = GetStorage();
+    if (box.read('firstLogin') is bool) {
+    } else {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Get.dialog(
+          UpgradePlanDialog(
+            text: Globals.userStream.user?.isExpired != true
+                ? "تاریخ عضویت شما به پایان رسیده است"
+                : "جهت دیده شدن و دسترسی عموم به خدمات و تخصص تان ،عضویت خودرا به ویژه ارتقاء دهید",
+            fromDashboard: true,
+            topText:
+                'بصورت پیش فرض ، کاربری شما عادی است و به رایگان از خدمات پاکار استفاده کنید',
+          ),
+          barrierColor: ColorUtils.black.withOpacity(0.5),
+          barrierDismissible: Globals.userStream.user?.isExpired == false,
+        );
+
+        box.write(
+          'firstLogin',
+          true,
+        );
+      });
+    }
   }
 
   void onPageChanged(int value) {

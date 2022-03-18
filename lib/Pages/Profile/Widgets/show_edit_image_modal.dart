@@ -66,7 +66,7 @@ class ShowEditImageModal extends StatelessWidget {
                     text: "حذف عکس غیر قابل بازگشت می باشد",
                   );
                   if (canDelete) {
-                    Globals.userStream.user!.avatarFile = null;
+                    Globals.userStream.user!.avatarFile = '';
                     Globals.userStream.user!.avatar = null;
                     Globals.userStream.changeUser(
                       Globals.userStream.user!,

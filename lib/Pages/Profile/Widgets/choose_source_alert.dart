@@ -83,6 +83,8 @@ class ChooseSourceAlert extends StatelessWidget {
     );
   }
 
+  ImageCropper? cropper = ImageCropper();
+
   void pickImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
     XFile? image = await _picker.pickImage(
@@ -91,7 +93,8 @@ class ChooseSourceAlert extends StatelessWidget {
       maxWidth: 800,
       imageQuality: 50,
     );
-    File? croppedFile = await ImageCropper.cropImage(
+
+    File? croppedFile = await cropper!.cropImage(
       sourcePath: image!.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,

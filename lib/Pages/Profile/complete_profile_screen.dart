@@ -9,6 +9,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share/share.dart';
 import 'package:paakaar/Controllers/MainPage/dashboard_controller.dart';
 import 'package:paakaar/Controllers/Profile/complete_profile_controller.dart';
 import 'package:paakaar/Globals/globals.dart';
@@ -68,7 +69,7 @@ class CompleteProfileScreen extends StatelessWidget {
               : AppBar(
                   toolbarHeight: 0.0,
                 ),
-          // key: controller.scaffoldKey,
+
           drawer: CustomDrawerWidget(),
           floatingActionButton: KeyboardVisibilityBuilder(
             builder: (context, isKeyboardVisible) {
@@ -82,6 +83,7 @@ class CompleteProfileScreen extends StatelessWidget {
                         FloatingActionButton.extended(
                           backgroundColor: ColorUtils.mainRed.shade600,
                           elevation: 4.0,
+
                           highlightElevation: 4.0,
                           focusElevation: 4.0,
                           hoverElevation: 4.0,
@@ -172,21 +174,23 @@ class CompleteProfileScreen extends StatelessWidget {
                       ),
                     ),
                     if (user.role?.membershipId != 1) ...[
-                      const Tab(
-                        child: Text(
+                      Tab(
+                        child: const Text(
                           "تخصص ها",
                           style: TextStyle(
                             fontSize: 12.0,
                           ),
                         ),
+                        key: controller.keyBottomNavigation1,
                       ),
-                      const Tab(
-                        child: Text(
+                      Tab(
+                        child: const Text(
                           "نمونه کار ها",
                           style: TextStyle(
                             fontSize: 12.0,
                           ),
                         ),
+                        key: controller.keyBottomNavigation2,
                       ),
                     ],
                   ],
@@ -384,8 +388,12 @@ class CompleteProfileScreen extends StatelessWidget {
                         // print(controller.listOfSubSubGroups);
                         // },
                         onTap: () {
-                          controller.unFocus();
-                          controller.selectFieldsAndGroups();
+                          if(Globals.userStream.user!.role!.isWorkerSpecialty!){
+                            controller.showWorkerAlert();
+                          }else{
+                            controller.unFocus();
+                            controller.selectFieldsAndGroups();
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -866,6 +874,8 @@ class CompleteProfileScreen extends StatelessWidget {
   }
 
   void previewItem(CustomFileModel item) {
+    print(item.url);
+    print(item.file);
     String? cvItem;
     String? ext;
 
@@ -929,6 +939,10 @@ class CompleteProfileScreen extends StatelessWidget {
       ViewUtils.showErrorDialog(
         'برای دانلود فایل مورد نظر ایتدا تغییرات پروفایل را ثبت و از صفحه ویرایش پروفایل خارج شده و دوباره امتحان کنید.',
       );
+
+      // ViewUtils.showErrorDialog(
+      //   'برای دانلود فایل مورد نظر ایتدا تغییرات پروفایل را ثبت و از صفحه ویرایش پروفایل خارج شده و دوباره امتحان کنید.',
+      // );
     }
 
     // final amin = await FlutterDownloader.enqueue(
@@ -1682,11 +1696,13 @@ class CompleteProfileScreen extends StatelessWidget {
         ViewUtils.sizedBox(),
         lastName(),
         ViewUtils.sizedBox(),
-        password(),
+        // password(),
         // ViewUtils.sizedBox(),
         // genderSelect(),
         ViewUtils.sizedBox(),
         buildShowMobile(),
+        ViewUtils.sizedBox(),
+        buildMoarefiCode()
       ],
     );
   }
@@ -2133,6 +2149,109 @@ class CompleteProfileScreen extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget buildMoarefiCode() {
+    return SizedBox(
+      width: Get.width,
+      height: Get.height * .05,
+      child: Row(
+        children: [
+          Flexible(
+            flex: 2,
+            child: SizedBox(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Row(
+                children: [
+                  const Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      height: double.maxFinite,
+                      width: double.maxFinite,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: AutoSizeText(
+                          'کد معرفی شما: ',
+                          maxLines: 1,
+                          maxFontSize: 12.0,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: SizedBox(
+                      height: double.maxFinite,
+                      width: double.maxFinite,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: AutoSizeText(
+                          Globals.userStream.user!.mobile.toString(),
+                          maxFontSize: 18.0,
+                          maxLines: 1,
+                          minFontSize: 12.0,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            color: ColorUtils.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: SizedBox(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Clipboard.setData(
+                        ClipboardData(
+                          text: Globals.userStream.user!.mobile.toString(),
+                        ),
+                      ).then(
+                        (value) {
+                          ViewUtils.showSuccessDialog(
+                            'کد معرف شما کپی شد',
+                          );
+                        },
+                      );
+                    },
+                    icon: Icon(
+                      Icons.copy,
+                      color: ColorUtils.myRed,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Share.share(
+                        Globals.userStream.user!.mobile.toString(),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.share,
+                      color: ColorUtils.myRed,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

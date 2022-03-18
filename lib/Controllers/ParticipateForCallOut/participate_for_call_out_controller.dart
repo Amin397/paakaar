@@ -52,7 +52,7 @@ class ParticipateForCallOutController extends GetxController {
       element.isSelected = false;
     }
     p1.isSelected = true;
-    if (p1.id == 4) {
+    if (p1.id == 5) {
       priceController.clear();
     }
     unFocus();

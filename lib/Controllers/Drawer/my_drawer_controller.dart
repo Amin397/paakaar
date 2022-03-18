@@ -47,7 +47,6 @@ class MyDrawerController extends GetxController {
     }
   }
 
-
   void getCanAddCall() async {
     EasyLoading.show();
     ApiResult result = await requests.getCanAddCall();
@@ -58,28 +57,30 @@ class MyDrawerController extends GetxController {
           deleteMessageAlert(
             message: 'با توجه به درجه عضویت شما امکان ثبت فراخوان رایگان دارید',
             id: 0,
+            ad: false,
           );
         } else {
           deleteMessageAlert(
             message:
-            '  تعداد فراخوان های رایگان شما به پایان رسیده و برای ثبت فراخوان جدید باید ' +
-                result.data.toString() +
-                ' تومان پرداخت کنید',
+                '  تعداد فراخوان های رایگان شما به پایان رسیده و برای ثبت فراخوان جدید باید ' +
+                    result.data.toString() +
+                    ' تومان پرداخت کنید',
             id: 1,
+            ad: false,
           );
         }
       } else {
         deleteMessageAlert(
           message:
-          'متاسفانه شما به علت اتمام تعداد فراخوان های رایگان و غیر رایگان امکان ثبت فراخوان ندارید',
+              'متاسفانه شما به علت اتمام تعداد فراخوان های رایگان و غیر رایگان امکان ثبت فراخوان ندارید',
           id: 2,
+          ad: false,
         );
       }
     }
   }
 
   void deleteMessageAlert({String? message, int? id, bool? ad}) async {
-
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) => AlertDialog(
@@ -87,49 +88,32 @@ class MyDrawerController extends GetxController {
         backgroundColor: Colors.transparent,
         content: ShowCallOutAlert(
           message: message,
+          id: id,
+          fromDrawer: true,
         ),
       ),
-    ).then((value) {
-
-
-      print('=============');
-      print(value);
-      print('=============');
-
-      if(value['back']){
-
-      }else{
-        if (ad!) {
-          if (id == 0) {
-            scaffoldKey.currentState?.openEndDrawer();
-            Get.toNamed(
-              RoutingUtils.adAdd.name,
-            );
-          } else if (id == 1) {
-            scaffoldKey.currentState?.openEndDrawer();
-            Get.toNamed(
-              RoutingUtils.adAdd.name,
-            );
-          }
-        } else {
-          if (id == 0) {
-            Get.toNamed(
-              RoutingUtils.addCallOut.name,
-              arguments: {
-                'field': dashboardController.listOfFields,
-              },
-            );
-          } else if (id == 1) {
-            Get.toNamed(
-              RoutingUtils.addCallOut.name,
-              arguments: {
-                'field': dashboardController.listOfFields,
-              },
-            );
+    ).then(
+      (value) {
+        if (!value['back']) {
+          if (ad!) {
+            if (id != 2) {
+              scaffoldKey.currentState?.openEndDrawer();
+              Get.toNamed(
+                RoutingUtils.adAdd.name,
+              );
+            }
+          } else {
+            if (id != 2) {
+              Get.toNamed(
+                RoutingUtils.addCallOut.name,
+                arguments: {
+                  'field': dashboardController.listOfFields,
+                },
+              );
+            }
           }
         }
-      }
-
-    });
+      },
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:paakaar/Plugins/get/get.dart';
 import 'package:paakaar/Plugins/neu/flutter_neumorphic.dart';
 import 'package:paakaar/Utils/color_utils.dart';
@@ -91,6 +92,16 @@ class SaveAlertDialog extends StatelessWidget {
                   flex: 1,
                   child: InkWell(
                     onTap: () {
+                      final box = GetStorage();
+                      var firstEnter = box.read('firstEnter');
+
+                      if (firstEnter is bool) {
+                      } else {
+                        var firstEnter = box.write(
+                          'firstEnter',
+                          true,
+                        );
+                      }
                       Get.toNamed(RoutingUtils.dashboard.name);
                     },
                     child: SizedBox(

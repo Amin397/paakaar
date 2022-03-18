@@ -781,7 +781,7 @@ class WidgetUtils {
         if (!innerPage) ...[
           IconButton(
             onPressed: () {
-              Share.share('تیتراژ\nhttps://titraj.negaapps.ir');
+              Share.share('پاکار\nhttps://paakaar.com');
             },
             icon: const Icon(
               Ionicons.share_social_outline,
@@ -869,7 +869,7 @@ class WidgetUtils {
       centerTitle: true,
       title: const Center(
         child: Text(
-          "تـــیـــتـــراژ",
+          "پـــــاکــــار",
           style: TextStyle(
             letterSpacing: 5.0,
             color: Colors.white,

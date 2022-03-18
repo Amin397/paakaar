@@ -98,13 +98,12 @@ class ParticipateForCallOutScreen extends StatelessWidget {
                       makeActive: controller.makeActive,
                     ),
                     const Spacer(),
-                    Container(
+                    SizedBox(
                       width: Get.width / 1.7,
                       child: WidgetUtils.textField(
                         price: true,
                         controller: controller.priceController,
-                        enabled: !controller
-                            .listOfPriceTypes
+                        enabled: !controller.listOfPriceTypes
                             .singleWhere((element) => element.id == 5)
                             .isSelected,
                         // enabled: true,
@@ -157,8 +156,22 @@ class ParticipateForCallOutScreen extends StatelessWidget {
           WidgetUtils.button(
             text: "ارسال پیشنهاد و نمایش پروفایل به مشتری",
             onTap: () {
-              controller.unFocus();
-              controller.sendProposal();
+              if (controller.listOfPriceTypes
+                      .singleWhere((element) => element.isSelected)
+                      .id ==
+                  5) {
+                controller.unFocus();
+                controller.sendProposal();
+              } else {
+                if (controller.priceController.text.isEmpty) {
+                  ViewUtils.showErrorDialog(
+                    'فیلد قیمت اجباری است',
+                  );
+                }else{
+                  controller.unFocus();
+                  controller.sendProposal();
+                }
+              }
             },
           ),
           ViewUtils.sizedBox(25),

@@ -6,8 +6,10 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:paakaar/Controllers/Profile/Widgets/cv_item_data_dialog.dart';
+import 'package:paakaar/Controllers/Profile/Widgets/show_worker_alert_dialog.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Models/Auth/social_media_model.dart';
 import 'package:paakaar/Models/Auth/user.dart';
@@ -33,6 +35,7 @@ import 'package:paakaar/Utils/Api/project_request_utils.dart';
 import 'package:paakaar/Utils/color_utils.dart';
 import 'package:paakaar/Utils/routing_utils.dart';
 import 'package:paakaar/Utils/view_utils.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import 'Widgets/save_alert_widget.dart';
 
@@ -50,6 +53,101 @@ class CompleteProfileController extends GetxController {
   RxBool isStatesLoaded = false.obs;
 
   bool isDeleting = false;
+
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = <TargetFocus>[];
+
+  GlobalKey keyBottomNavigation1 = GlobalKey();
+  GlobalKey keyBottomNavigation2 = GlobalKey();
+
+  void showTutorial() {
+    initTargets();
+
+    final box = GetStorage();
+    var firstEnter = box.read('firstEnter');
+
+    if (firstEnter is bool) {
+    } else {
+      tutorialCoachMark = TutorialCoachMark(
+        context,
+        targets: targets,
+        colorShadow: ColorUtils.myRed,
+        textSkip: "رد شدن",
+        paddingFocus: 10,
+        opacityShadow: 0.8,
+        onFinish: () {
+          print("finish");
+        },
+        onClickTarget: (target) {
+          print('onClickTarget: $target');
+        },
+        onClickOverlay: (target) {
+          print('onClickOverlay: $target');
+        },
+        onSkip: () {
+          print("skip");
+        },
+      )..show();
+
+      update();
+    }
+  }
+
+  void initTargets() {
+    targets.clear();
+    targets.add(
+      TargetFocus(
+        identify: "keyBottomNavigation1",
+        keyTarget: keyBottomNavigation1,
+        alignSkip: Alignment.bottomRight,
+        contents: [
+          TargetContent(
+            builder: (context, controller) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: Get.height * .1),
+                  child: const Text(
+                    "تخصص خود را میتوانید از این بخش انتخاب کنید",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "keyBottomNavigation2",
+        keyTarget: keyBottomNavigation2,
+        alignSkip: Alignment.bottomRight,
+        contents: [
+          TargetContent(
+            builder: (context, controller) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: Get.height * .1),
+                  child: const Text(
+                    "نمونه کار های خود را میتوانید از این بخش بارگذاری کنید",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
   late List<SocialMediaModel> listOfSocialMedias;
   RxBool isSocialMediaLoaded = false.obs;
@@ -258,10 +356,16 @@ class CompleteProfileController extends GetxController {
     bioTextController.text = Globals.userStream.user!.bio ?? '';
     cvTextController.text = Globals.userStream.user!.individualCv ?? '';
     if (Globals.userStream.user!.region is DistrictModel) {
-      getDistricts(Globals.userStream.user!.city!.id, true);
+      getDistricts(
+        Globals.userStream.user!.city!.id,
+        true,
+      );
       // listOfDistricts.add(Globals.userStream.user!.region!);
-
     }
+    Future.delayed(
+      const Duration(milliseconds: 1000),
+      showTutorial,
+    );
     super.onInit();
   }
 
@@ -274,7 +378,10 @@ class CompleteProfileController extends GetxController {
     });
     item.isSelected = true;
 
-    getDistricts(item.id, false);
+    getDistricts(
+      item.id,
+      false,
+    );
     unFocus();
     update();
   }
@@ -363,6 +470,17 @@ class CompleteProfileController extends GetxController {
   }
 
   void save({bool? fromAppBar}) async {
+    final box = GetStorage();
+    var firstEnter = box.read('firstEnter');
+
+    if (firstEnter is bool) {
+    } else {
+      var firstEnter = box.write(
+        'firstEnter',
+        true,
+      );
+    }
+    print(Globals.userStream.user!.avatarFile);
     List<int> listOfSubSubGroups =
         this.listOfSubSubGroups.map((e) => e.id).toList();
     EasyLoading.show();
@@ -391,7 +509,11 @@ class CompleteProfileController extends GetxController {
             },
           )
           .toList(),
-      image: Globals.userStream.user!.avatarFile,
+      image: Globals.userStream.user!.avatarFile == null
+          ? '1'
+          : (Globals.userStream.user!.avatarFile == '')
+              ? ''
+              : Globals.userStream.user!.avatarFile,
       bio: bioTextController.text,
       fName: nameController.text,
       lName: lastNameController.text,
@@ -420,6 +542,7 @@ class CompleteProfileController extends GetxController {
         result.data,
       );
       Globals.userStream.changeUser(userModel);
+      getCvFiles();
       if (fromAppBar == true) {
         Get.back();
         Get.back();
@@ -612,6 +735,7 @@ class CompleteProfileController extends GetxController {
   }
 
   void getCvFiles() {
+    listOfCvFiles.clear();
     Globals.userStream.user?.cvItems?.forEach((element) {
       listOfCvFiles.add(
         element,
@@ -764,5 +888,16 @@ class CompleteProfileController extends GetxController {
       }
       update();
     }
+  }
+
+  void showWorkerAlert() {
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) => const AlertDialog(
+        backgroundColor: Colors.transparent,
+        contentPadding: EdgeInsets.zero,
+        content: ShowWorkerAlertDialog(),
+      ),
+    );
   }
 }

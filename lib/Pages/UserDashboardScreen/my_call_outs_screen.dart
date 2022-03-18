@@ -41,7 +41,6 @@ class MyCallOutsScreen extends StatelessWidget {
           innerPage: true,
           key: controller.scaffoldKey,
         ),
-        drawer: CustomDrawerWidget(),
         body: Padding(
           padding: ViewUtils.scaffoldPadding,
           child: buildBody(),

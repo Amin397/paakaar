@@ -152,9 +152,10 @@ class LoginRegisterController extends GetxController {
         );
     EasyLoading.dismiss();
     if (result.isDone) {
-      ViewUtils.showSuccessDialog(
-        result.data['message'],
-      );
+      // ViewUtils.showSuccessDialog(
+      //   // result.data['message'],
+      //   ''
+      // );
 
       FocusScope.of(context).requestFocus(FocusNode());
       // PrefHelpers.setCustomerId(result.data['customerId'].toString());
@@ -208,9 +209,9 @@ class LoginRegisterController extends GetxController {
       if (isRegister.value == true) {
         codeFocusNode.requestFocus();
       }
-      ViewUtils.showInfoDialog(
-        result.data['message'],
-      );
+      // ViewUtils.showInfoDialog(
+      //   result.data['message'],
+      // );
     } else {
       ViewUtils.showErrorDialog(
         result.data['message'],
@@ -223,7 +224,6 @@ class LoginRegisterController extends GetxController {
     ApiResult result =
         await requests.forgotPassword(mobileController.value.text);
     EasyLoading.dismiss();
-
     if (result.isDone) {
       isForgot.value = true;
       codeFocusNode.requestFocus();
@@ -245,9 +245,9 @@ class LoginRegisterController extends GetxController {
     EasyLoading.dismiss();
 
     if (result.isDone) {
-      ViewUtils.showSuccessDialog(
-        "رمز عبور جدید شما: ${codeController.text}",
-      );
+      // ViewUtils.showSuccessDialog(
+      //   "رمز عبور جدید شما: ${codeController.text}",
+      // );
       final box = GetStorage();
       box.write(
         'userId',

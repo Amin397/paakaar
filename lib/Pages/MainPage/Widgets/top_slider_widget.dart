@@ -90,50 +90,50 @@ class TopSliderWidget extends StatelessWidget {
               width: Get.width,
               height: dashboardController.isSlidersLoaded.isTrue &&
                       dashboardController.getListOfSliders.isNotEmpty
-                  ? Get.height * .28
+                  ? Get.height * .29
                   : Get.height / 75,
               child: dashboardController.isSlidersLoaded.isTrue
                   ? Column(
-                children: [
-                  Container(
-                    height: 1080 / factor,
-                    width: 1920 / factor,
-                    child: PageView.builder(
-                      controller: dashboardController.topSliderController,
-                      itemBuilder: buildBanner,
-                      onPageChanged: dashboardController.onPageChanged,
-                      itemCount:
-                      dashboardController.getListOfSliders.length,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 6.0,
-                  ),
-                  SmoothPageIndicator(
-                    controller: dashboardController.topSliderController,
-                    count: dashboardController.getListOfSliders.length,
-                    effect: ExpandingDotsEffect(
-                      dotHeight: 10.0,
-                      dotWidth: 10.0,
-                      activeDotColor: ColorUtils.myRed,
-                    ),
-                    onDotClicked: (index) {},
-                  )
-                  // Container(
-                  //   height: 8,
-                  //   width: Get.width,
-                  //   color: Colors.red,
-                  //   child: PageView.builder(
-                  //     controller:
-                  //         dashboardController.indicatorPageController,
-                  //     itemBuilder: buildPageIcon,
-                  //     itemCount:
-                  //         dashboardController.getListOfSliders.length,
-                  //     scrollDirection: Axis.horizontal,
-                  //   ),
-                  // ),
-                ],
-              )
+                      children: [
+                        SizedBox(
+                          height: 1080 / factor,
+                          width: 1920 / factor,
+                          child: PageView.builder(
+                            controller: dashboardController.topSliderController,
+                            itemBuilder: buildBanner,
+                            onPageChanged: dashboardController.onPageChanged,
+                            itemCount:
+                                dashboardController.getListOfSliders.length,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6.0,
+                        ),
+                        SmoothPageIndicator(
+                          controller: dashboardController.topSliderController,
+                          count: dashboardController.getListOfSliders.length,
+                          effect: ExpandingDotsEffect(
+                            dotHeight: 10.0,
+                            dotWidth: 10.0,
+                            activeDotColor: ColorUtils.myRed,
+                          ),
+                          onDotClicked: (index) {},
+                        )
+                        // Container(
+                        //   height: 8,
+                        //   width: Get.width,
+                        //   color: Colors.red,
+                        //   child: PageView.builder(
+                        //     controller:
+                        //         dashboardController.indicatorPageController,
+                        //     itemBuilder: buildPageIcon,
+                        //     itemCount:
+                        //         dashboardController.getListOfSliders.length,
+                        //     scrollDirection: Axis.horizontal,
+                        //   ),
+                        // ),
+                      ],
+                    )
                   : WidgetUtils.loadingWidget(),
             ),
           );

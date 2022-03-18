@@ -88,7 +88,7 @@ class SliderSingleScreen extends StatelessWidget {
               onTap: () async {
                 bool canGo = await GetConfirmationDialog.show(
                   text:
-                      "شما قرار است به صفحه ای خارج از اپلیکیشن تیتراژ هدایت شوید",
+                      "شما قرار است به صفحه ای خارج از اپلیکیشن پاکار هدایت شوید",
                 );
                 if (canGo == true) {
                   print(slider.upSliderLink);

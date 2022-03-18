@@ -13,6 +13,7 @@ class WebMethods {
   static const String answerTicket = 'answerTicket';
   static const String deleteCallOuts = 'deleteCallOuts';
   static const String callType = 'callType';
+  static const String appVersion = 'appVersion';
   static const String getAllAdBanners = 'getAllAdBanners';
   static const String adType = 'adType';
   static const String deleteReport = 'deleteReport';

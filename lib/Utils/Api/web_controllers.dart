@@ -13,6 +13,7 @@ enum WebControllers {
   AdBanners,
   States,
   ReportAbuse,
+  AppVersion,
   Scores,
   Calls,
   Tickets,

@@ -45,11 +45,12 @@ class DashboardScreen extends StatelessWidget {
           // controller.refresh();
         } else {
           canBack = await GetConfirmationDialog.show(
-            text: "شما در حال خارج شدن از اپلیکیشن تیتراژ هستید",
+            text: "شما در حال خارج شدن از اپلیکیشن پاکار هستید",
           );
         }
         if (canBack == true) {
           exit(0);
+          // controller.showTutorial();
           // return true;
         }
         return false;

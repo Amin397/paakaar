@@ -12,11 +12,13 @@ class ShowCallOutAlert extends StatelessWidget {
     this.message,
     this.field,
     this.id,
+    this.fromDrawer,
   }) : super(key: key);
 
   String? message;
   FieldModel? field;
   int? id;
+  bool? fromDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -59,26 +61,32 @@ class ShowCallOutAlert extends StatelessWidget {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        if (id == 0) {
+                        // if(fromDrawer is bool) {
                           Get.back(
                             result: {
-                              'back':false
+                              'back': false
                             },
                           );
-                          Get.toNamed(
-                            RoutingUtils.addCallOut.name,
-                            arguments: {
-                              'field': field,
-                            },
-                          );
-                        } else if (id == 1) {
-                          Get.toNamed(
-                            RoutingUtils.addCallOut.name,
-                            arguments: {
-                              'field': field,
-                            },
-                          );
-                        }
+                        // }
+                        // }else{
+                        //   if (id == 1) {
+                        //     Get.back(
+                        //       result: {
+                        //         'back':false
+                        //       },
+                        //     );
+                        //     Get.toNamed(
+                        //       RoutingUtils.addCallOut.name,
+                        //       arguments: {
+                        //         'field': field,
+                        //       },
+                        //     );
+                        //   }else{
+                        //     print(id);
+                        //   }
+                        // }
+
+
                       },
                       child: Container(
                         height: double.maxFinite,

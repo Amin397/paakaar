@@ -64,7 +64,7 @@ class AdAddScreen extends StatelessWidget {
                                 makeActive: controller.makeStateActive,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8.0,
                             ),
                             Expanded(
@@ -194,7 +194,7 @@ class AdAddScreen extends StatelessWidget {
                   init: controller,
                   builder: (_) => DottedBorder(
 
-                    dashPattern: [10, 10],
+                    dashPattern: const [10, 10],
                     borderType: BorderType.RRect,
                     radius: const Radius.circular(10.0),
                     strokeCap: StrokeCap.round,
@@ -214,7 +214,7 @@ class AdAddScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: (controller.fileImage is XFile)
-                                ? Container(
+                                ? SizedBox(
                                     width: double.maxFinite,
                                     height: double.maxFinite,
                                     child: ClipRRect(
@@ -226,7 +226,8 @@ class AdAddScreen extends StatelessWidget {
                                     ),
                                   )
                                 : AutoSizeText(
-                                    'افزودن عکس برای آگهی',
+                                    'افزودن عکس برای آگهی\n\n (اختیاری)',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: ColorUtils.textColor,
                                     ),
@@ -273,7 +274,7 @@ class AdAddScreen extends StatelessWidget {
                   ),
                 ),
                 ViewUtils.sizedBox(75),
-                Container(
+                SizedBox(
                   height: Get.height / 22,
                   child: Row(
                     children: [
@@ -291,7 +292,7 @@ class AdAddScreen extends StatelessWidget {
                       Flexible(
                         flex: 12,
                         child: Container(
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               "تومان",
                             ),

@@ -12,7 +12,7 @@ import 'package:paakaar/Models/MainPage/Field.dart';
 import '../option_model.dart';
 
 class UserModel {
-  XFile? avatarFile;
+  dynamic avatarFile;
 
   double credit = 0.0;
 

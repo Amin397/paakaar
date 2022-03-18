@@ -2,7 +2,7 @@ import 'package:lottie/lottie.dart';
 
 class ImageUtils {
   static const String strokedLogoPath = 'assets/logo.png';
-  static const String logoPath = 'assets/svg/logo.svg';
+  static const String logoPath = 'assets/svg/logo.png';
   static const String logo = 'assets/logo.png';
   static const String selectIconPath = 'assets/svg/services.png';
   static const String campaignIconPath = 'assets/svg/callOutIcon.png';

@@ -20,8 +20,8 @@ class TvWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.height * .13,
+    return SizedBox(
+      height: Get.height * .14,
       child: Obx(
         () => dashboardController.isTvLoaded.isTrue
             ? GetBuilder(
@@ -49,7 +49,7 @@ class TvWidget extends StatelessWidget {
                         ),
                       ):Container(),
                       Expanded(
-                        child: Container(
+                        child: SizedBox(
                           width: double.maxFinite,
                           height: double.maxFinite,
                           child: AnimationLimiter(
@@ -114,7 +114,7 @@ class TvWidget extends StatelessWidget {
                     // );
                   },
                   child: Container(
-                    margin: const EdgeInsets.all(6.0),
+                    margin: const EdgeInsets.all(4.0),
                     child: Column(
                       children: [
                         Stack(
@@ -150,8 +150,20 @@ class TvWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text(
-                          tv.name,
+                        SizedBox(
+                          height: Get.height * .04,
+                          width: Get.width / 3,
+                          child: Center(
+                            child: AutoSizeText(
+                              tv.name,
+                              maxLines: 1,
+                              maxFontSize: 16.0,
+                              minFontSize: 10.0,
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -216,9 +228,20 @@ class TvWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        AutoSizeText(
-                          tv.name,
-                          style: const TextStyle(fontSize: 12.0),
+                        SizedBox(
+                          height: Get.height * .03,
+                          width: Get.width / 3,
+                          child: Center(
+                            child: AutoSizeText(
+                              tv.name,
+                              maxLines: 1,
+                              maxFontSize: 14.0,
+                              minFontSize: 10.0,
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

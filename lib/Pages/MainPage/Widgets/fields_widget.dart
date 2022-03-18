@@ -46,7 +46,7 @@ class FieldsWidget extends StatelessWidget {
                 Expanded(
                   child: Obx(
                     () => dashboardController.isFieldsLoaded.isTrue
-                        ? Container(
+                        ? SizedBox(
                             width: double.maxFinite,
                             height: double.maxFinite,
                             child: AnimationLimiter(
@@ -104,7 +104,7 @@ class FieldsWidget extends StatelessWidget {
                 Expanded(
                   child: Obx(
                     () => dashboardController.isFieldsLoaded.isTrue
-                        ? Container(
+                        ? SizedBox(
                             width: double.maxFinite,
                             height: double.maxFinite,
                             child: AnimationLimiter(

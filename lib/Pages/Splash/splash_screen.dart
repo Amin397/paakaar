@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paakaar/Controllers/Splash/splash_controller.dart';
 import 'package:paakaar/Plugins/get/get.dart';
+import 'package:paakaar/Plugins/neu/flutter_neumorphic.dart';
 import 'package:paakaar/Utils/image_utils.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -32,13 +32,20 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const Text(
+                    'پاکار',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
+                    ),
+                  ),
                 ],
               ),
             );
           } else {
             return Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -50,6 +57,14 @@ class SplashScreen extends StatelessWidget {
                           ImageUtils.logo,
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(height: Get.height * .05,),
+                  const Text(
+                    'پـــاکـــار',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
                     ),
                   ),
                 ],

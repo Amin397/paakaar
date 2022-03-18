@@ -108,7 +108,7 @@ class LoginRegisterScreen extends StatelessWidget {
                                               ),
                                               GestureDetector(
                                                 child: const Text(
-                                                  "رمز عبور خود را فرموش کرده ام",
+                                                  "ارسال مجدد کد تایید",
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                     color: Colors.blue,
@@ -171,7 +171,7 @@ class LoginRegisterScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const Text(
-                                        " تیتراژ را میپذیرم!",
+                                        " پاکار را میپذیرم!",
                                         style: TextStyle(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -196,177 +196,176 @@ class LoginRegisterScreen extends StatelessWidget {
               );
             } else {
               return Center(
-                child: Container(
-                  child: Padding(
-                    padding: ViewUtils.scaffoldPadding,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: Get.height * .05,
-                          ),
+                child: Padding(
+                  padding: ViewUtils.scaffoldPadding,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: Get.height * .05,
+                        ),
 
-                          Container(
-                            width: Get.width * .4,
-                            height: Get.width * .4,
-                            child: const Image(
-                              image: AssetImage(
-                                ImageUtils.logo,
-                              ),
+                        SizedBox(
+                          width: Get.width * .4,
+                          height: Get.width * .4,
+                          child: const Image(
+                            image: AssetImage(
+                              ImageUtils.logo,
                             ),
                           ),
-                          // Image.asset(
-                          //
-                          //   width: Get.width * .4,
-                          //   height: Get.width * .4,
-                          //   color: ColorUtils.mainRed,
-                          // ),
-                          SizedBox(
-                            height: Get.height * .06,
+                        ),
+                        // Image.asset(
+                        //
+                        //   width: Get.width * .4,
+                        //   height: Get.width * .4,
+                        //   color: ColorUtils.mainRed,
+                        // ),
+                        SizedBox(
+                          height: Get.height * .06,
+                        ),
+                        const Text(
+                          "ورود / ثبت نام",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white,
                           ),
-                          const Text(
-                            "ورود / ثبت نام",
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(
-                            height: Get.height * .02,
-                          ),
-                          mobileInput(),
-                          SizedBox(
-                            height: Get.height * .03,
-                          ),
-                          Obx(() {
-                            return AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 150),
-                              transitionBuilder:
-                                  (Widget child, Animation<double> animation) {
-                                return SizeTransition(
-                                  sizeFactor: animation,
-                                  child: child,
-                                );
-                              },
-                              child: controller.isLogin.value == true
-                                  ? Center(
-                                      child: Column(
-                                        children: [
-                                          passwordInput(),
-                                          SizedBox(
-                                            height: Get.height * .06,
-                                          ),
-                                          Container(
-                                            width: controller.size.width * .8,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                AnimatedSwitcher(
-                                                  duration:
-                                                      Duration(seconds: 1),
-                                                  child: controller
-                                                          .getFingerprint.isTrue
-                                                      ? GestureDetector(
-                                                          child: const Text(
-                                                            "ورود با اثر انگشت",
-                                                            style: TextStyle(
-                                                              fontSize: 12.0,
-                                                              color:
-                                                                  Colors.blue,
-                                                            ),
-                                                          ),
-                                                          onTap: () => controller
-                                                              .fingerprint(),
-                                                        )
-                                                      : Container(),
-                                                ),
-                                                GestureDetector(
-                                                  child: const Text(
-                                                    "رمز عبور خود را فرموش کرده ام",
-                                                    style: TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  ),
-                                                  onTap: () => controller
-                                                      .forgotPassword(),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * .03,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : Container(),
-                            );
-                          }),
-                          Obx(
-                            () => AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 150),
-                              transitionBuilder:
-                                  (Widget child, Animation<double> animation) {
-                                return SizeTransition(
-                                  sizeFactor: animation,
-                                  child: child,
-                                );
-                              },
-                              child: controller.isRegister.value == true ||
-                                      controller.isForgot.value == true
-                                  ? Center(
-                                      child: Column(
-                                        children: [
-                                          codeInput(),
-                                        ],
-                                      ),
-                                    )
-                                  : Container(),
-                            ),
-                          ),
-                          Obx(
-                            () => controller.isRegister.value
-                                ? GetBuilder(
-                                    init: controller,
-                                    builder: (context) => Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                        ),
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
+                        mobileInput(),
+                        SizedBox(
+                          height: Get.height * .03,
+                        ),
+                        Obx(() {
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 150),
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
+                              return SizeTransition(
+                                sizeFactor: animation,
+                                child: child,
+                              );
+                            },
+                            child: controller.isLogin.value == true
+                                ? Center(
+                                    child: Column(
                                       children: [
-                                        Checkbox(
-                                          activeColor: ColorUtils.green,
-                                          value: controller.acceptTerms,
-                                          onChanged: controller.onTermsChanged,
+                                        // passwordInput(),
+                                        SizedBox(
+                                          height: Get.height * .06,
                                         ),
-                                        Text(
-                                          "قوانین و مقررات",
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: ColorUtils.blue,
+                                        SizedBox(
+                                          width: controller.size.width * .8,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                            children: [
+                                              // AnimatedSwitcher(
+                                              //   duration:
+                                              //       const Duration(seconds: 1),
+                                              //   child: controller
+                                              //           .getFingerprint.isTrue
+                                              //       ? GestureDetector(
+                                              //           child: const Text(
+                                              //             "ورود با اثر انگشت",
+                                              //             style: TextStyle(
+                                              //               fontSize: 12.0,
+                                              //               color:
+                                              //                   Colors.blue,
+                                              //             ),
+                                              //           ),
+                                              //           onTap: () => controller
+                                              //               .fingerprint(),
+                                              //         )
+                                              //       : Container(),
+                                              // ),
+                                              GestureDetector(
+                                                child: Text(
+                                                  "دریافت کد تایید",
+                                                  style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: ColorUtils.green,
+                                                    decoration: TextDecoration.underline,
+                                                  ),
+                                                ),
+                                                onTap: () => controller
+                                                    .forgotPassword(),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          " تیتراژ را میپذیرم!",
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.white,
-                                          ),
+                                        SizedBox(
+                                          height: Get.height * .03,
                                         ),
                                       ],
                                     ),
                                   )
                                 : Container(),
+                          );
+                        }),
+                        Obx(
+                          () => AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 150),
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
+                              return SizeTransition(
+                                sizeFactor: animation,
+                                child: child,
+                              );
+                            },
+                            child: controller.isRegister.value == true ||
+                                    controller.isForgot.value == true
+                                ? Center(
+                                    child: Column(
+                                      children: [
+                                        codeInput(),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
                           ),
-                          ViewUtils.sizedBox(),
-                          Obx(
-                            () => button(),
-                          ),
-                          SizedBox(
-                            height: Get.height / 4,
-                          ),
-                        ],
-                      ),
+                        ),
+                        Obx(
+                          () => controller.isRegister.value
+                              ? GetBuilder(
+                                  init: controller,
+                                  builder: (context) => Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Checkbox(
+                                        activeColor: ColorUtils.green,
+                                        value: controller.acceptTerms,
+                                        onChanged: controller.onTermsChanged,
+                                      ),
+                                      Text(
+                                        "قوانین و مقررات",
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: ColorUtils.blue,
+                                        ),
+                                      ),
+                                      const Text(
+                                        " پاکار را میپذیرم!",
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
+                        ),
+                        ViewUtils.sizedBox(),
+                        // Obx(
+                        //   () => button(),
+                        // ),
+                        SizedBox(
+                          height: Get.height / 4,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -419,7 +418,7 @@ class LoginRegisterScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(6.0),
+                            padding: const EdgeInsets.all(6.0),
                             child: Icon(
                               Icons.edit,
                               size: 17.0,
@@ -429,7 +428,7 @@ class LoginRegisterScreen extends StatelessWidget {
                         ),
                         Text(
                           controller.mobileController.value.text,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: ColorUtils.black,
                             letterSpacing: 1.9,
                             fontSize: 15.0,
@@ -462,14 +461,14 @@ class LoginRegisterScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                       color: Colors.white,
                     ),
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 8.0,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(2.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6.0),
                           ),
@@ -481,7 +480,7 @@ class LoginRegisterScreen extends StatelessWidget {
                         ),
                         Text(
                           controller.mobileController.value.text,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: ColorUtils.black,
                             letterSpacing: 1.9,
                             fontSize: 15.0,
@@ -530,8 +529,8 @@ class LoginRegisterScreen extends StatelessWidget {
         LengthLimitingTextInputFormatter(5),
       ],
       onChange: (String string) {
-        if (string.length > 4) {
-          // controller.submit();
+        if (string.length == 5) {
+          controller.submit();
         }
       },
       keyboardType: TextInputType.number,
