@@ -105,14 +105,14 @@ class AdAddController extends GetxController {
       listOfStates = StateModel.listFromJson(
         result.data,
       );
-      listOfStates.insert(
-        0,
-        StateModel(
-          id: 0,
-          name: "همه ی استان ها",
-          listOfCities: [],
-        ),
-      );
+      // listOfStates.insert(
+      //   0,
+      //   StateModel(
+      //     id: 0,
+      //     name: "همه ی استان ها",
+      //     listOfCities: [],
+      //   ),
+      // );
       isStatesLoaded.value = true;
     } else {
       ViewUtils.showErrorDialog();

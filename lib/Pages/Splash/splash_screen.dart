@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:paakaar/Controllers/Splash/splash_controller.dart';
 import 'package:paakaar/Plugins/get/get.dart';
@@ -18,7 +19,7 @@ class SplashScreen extends StatelessWidget {
           if (raints.maxWidth > 480.0) {
             return Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -32,13 +33,20 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Text(
-                    'پاکار',
+                  SizedBox(
+                    height: Get.height * .05,
+                  ),
+                  const AutoSizeText(
+                    'پــــاکــــار',
+                    maxLines: 1,
+                    maxFontSize: 24.0,
+                    minFontSize: 18.0,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24.0,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
+                  )
                 ],
               ),
             );
@@ -59,14 +67,20 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: Get.height * .05,),
-                  const Text(
-                    'پـــاکـــار',
+                  SizedBox(
+                    height: Get.height * .05,
+                  ),
+                  const AutoSizeText(
+                    'پــــاکــــار',
+                    maxLines: 1,
+                    maxFontSize: 24.0,
+                    minFontSize: 18.0,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24.0,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
+                  )
                 ],
               ),
             );

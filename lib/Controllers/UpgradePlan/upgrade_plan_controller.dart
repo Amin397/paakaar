@@ -126,39 +126,42 @@ class UpgradePlanController extends GetxController {
     Get.toNamed(
       RoutingUtils.completeProfile.name,
     );
-    Get.dialog(
-      CompleteProfileDialog(),
-      barrierColor: Colors.black.withOpacity(0.5),
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) => AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        content: CompleteProfileDialog(),
+      ),
     );
   }
 
-
-
   void handleStart() async {
-      ApiResult result =
-      await requests.getIndividualData( Globals.userStream.user!.id.toString());
-      if (result.isDone) {
-        Globals.userStream.user = UserModel.fromJson(
-          result.data,
-        );
-        Get.back();
-        Get.toNamed(
-          RoutingUtils.dashboard.name,
-        );
+    bool amin = false;
+    ApiResult result = await requests
+        .getIndividualData(Globals.userStream.user!.id.toString());
+    if (result.isDone) {
+      amin = Globals.userStream.user!.buyFreeMembership == 0;
+      Globals.userStream.user = UserModel.fromJson(
+        result.data,
+      );
+      Get.back();
+      Get.toNamed(
+        RoutingUtils.dashboard.name,
+      );
+      if (amin) {
         Get.dialog(
           CompleteProfileDialog(),
           barrierColor: Colors.black.withOpacity(0.5),
         );
-
-        // print('main page');
-        // if(notif != 0 && notif != null){
-        //   List<dynamic> notifList = jsonDecode(box.read('notifList'));
-        //   Globals.notification.setNotification(notification: notif , messagesList: notifList);
-        // }
-
       }
+
+      // print('main page');
+      // if(notif != 0 && notif != null){
+      //   List<dynamic> notifList = jsonDecode(box.read('notifList'));
+      //   Globals.notification.setNotification(notification: notif , messagesList: notifList);
+      // }
+
+    }
   }
-
-
-
 }

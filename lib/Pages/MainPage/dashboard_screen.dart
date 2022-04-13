@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frefresh/frefresh.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:share/share.dart';
 import 'package:paakaar/Controllers/MainPage/dashboard_controller.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Pages/Chat/chat_screen.dart';
@@ -28,6 +31,9 @@ import 'package:paakaar/Widgets/get_confirmation_dialog.dart';
 import 'package:paakaar/Widgets/custom_drawer_widget.dart';
 import 'package:paakaar/Widgets/get_fields_and_groups_dialog.dart';
 
+import '../../main.dart';
+import '../Notification/View/notification_modal_screen.dart';
+
 class DashboardScreen extends StatelessWidget {
   final DashboardController controller = Get.put(
     DashboardController(),
@@ -45,7 +51,7 @@ class DashboardScreen extends StatelessWidget {
           // controller.refresh();
         } else {
           canBack = await GetConfirmationDialog.show(
-            text: "شما در حال خارج شدن از اپلیکیشن پاکار هستید",
+            text: "شما در حال خارج شدن از اپلیکیشن تیتراژ هستید",
           );
         }
         if (canBack == true) {
@@ -58,10 +64,113 @@ class DashboardScreen extends StatelessWidget {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          appBar: WidgetUtils.appBar(
-            key: controller.scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: ColorUtils.mainRed.shade900,
+            actions: [
+              ...[
+                IconButton(
+                  onPressed: () {
+                    Share.share('https://paakaar.com/App/paakaar.apk');
+                  },
+                  icon: const Icon(
+                    Ionicons.share_social_outline,
+                    color: Colors.white,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                      Get.toNamed(
+                        RoutingUtils.myBookmarks.name,
+                        arguments: {},
+                      );
+                  },
+                  icon: const Icon(
+                    Ionicons.bookmark_outline,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+              Stack(
+                children: [
+                  Center(
+                    child: IconButton(
+                      onPressed: ()async {
+
+                          var box = GetStorage();
+                          // Get.toNamed(
+                          //   RoutingUtils.userDashboard.name,
+                          // );
+                          var modal = await showModalBottomSheet(
+                            context: Get.context!,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => NotificationModalScreen(),
+                          );
+                          Globals.notification.deleteAllNotification();
+                          box.write('notif', Globals.notification.notificationNumber);
+                          box.write('notifList', null);
+                      },
+                      icon: const Icon(
+                        FeatherIcons.bell,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                    Positioned(
+                      top: 5.0,
+                      right: 5.0,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: StreamBuilder(
+                          stream: Globals.notification.getStream,
+                          builder: (BuildContext context, i) {
+                            return Center(
+                              child: Text(
+                                (Globals.notification.notificationNumber).toString(),
+                                style: TextStyle(
+                                  color: ColorUtils.red.shade900,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+            centerTitle: true,
+            title: const Center(
+              child: Text(
+                "پــــاکـــــار",
+                style: TextStyle(
+                  letterSpacing: 5.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            leading: IconButton(
+              onPressed: () {
+                  // if (key?.currentState?.isDrawerOpen != true) {
+                  //   key?.currentState?.openDrawer();
+                // Scaffold.of(context).openDrawer();
+                scaffoldKey.currentState!.openDrawer();
+                  // } else {
+                  //   key?.currentState?.openEndDrawer();
+                  // }
+
+              },
+              icon: const Icon(
+                FeatherIcons.menu,
+                color: Colors.white,
+              ),
+            ),
           ),
-          key: controller.scaffoldKey,
+          key: scaffoldKey,
           drawer: CustomDrawerWidget(),
           floatingActionButton: KeyboardVisibilityBuilder(
             builder: (_, bool isVisible) {

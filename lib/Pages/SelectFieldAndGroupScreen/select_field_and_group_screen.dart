@@ -186,6 +186,10 @@ class SelectFieldAndGroupScreen extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10.0),
           onTap: () {
+            print('================');
+            print(last.hasSubCategory);
+            print(last.isSpeciality);
+            print('================');
             controller.listOfGroups.add(
               last,
             );

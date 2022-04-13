@@ -212,9 +212,11 @@ class _VideoPlayerDialogState extends State<VoicePlayerDialog> {
     );
 
     audioPlayer.onAudioPositionChanged.listen((pos) {
-      setState(() {
-        position = pos;
-      });
+     if(mounted){
+       setState(() {
+         position = pos;
+       });
+     }
     });
 
     audioPlayer.onDurationChanged.listen((dur) {

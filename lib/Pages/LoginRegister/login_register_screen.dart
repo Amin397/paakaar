@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_file/open_file.dart';
 import 'package:paakaar/Controllers/login_register_controller.dart';
 import 'package:paakaar/Plugins/get/get.dart';
 import 'package:paakaar/Plugins/neu/flutter_neumorphic.dart';
@@ -10,6 +11,8 @@ import 'package:paakaar/Utils/color_utils.dart';
 import 'package:paakaar/Utils/image_utils.dart';
 import 'package:paakaar/Utils/view_utils.dart';
 import 'package:paakaar/Utils/widget_utils.dart';
+
+import '../../Utils/routing_utils.dart';
 
 class LoginRegisterScreen extends StatelessWidget {
   LoginRegisterScreen({Key? key}) : super(key: key);
@@ -84,8 +87,7 @@ class LoginRegisterScreen extends StatelessWidget {
                                           width: controller.size.width * .8,
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               AnimatedSwitcher(
                                                 duration:
@@ -97,8 +99,7 @@ class LoginRegisterScreen extends StatelessWidget {
                                                           "ورود با اثر انگشت",
                                                           style: TextStyle(
                                                             fontSize: 12.0,
-                                                            color:
-                                                                Colors.blue,
+                                                            color: Colors.blue,
                                                           ),
                                                         ),
                                                         onTap: () => controller
@@ -114,8 +115,8 @@ class LoginRegisterScreen extends StatelessWidget {
                                                     color: Colors.blue,
                                                   ),
                                                 ),
-                                                onTap: () => controller
-                                                    .forgotPassword(),
+                                                onTap: () =>
+                                                    controller.forgotPassword(),
                                               ),
                                             ],
                                           ),
@@ -163,15 +164,25 @@ class LoginRegisterScreen extends StatelessWidget {
                                         value: controller.acceptTerms,
                                         onChanged: controller.onTermsChanged,
                                       ),
-                                      Text(
-                                        "قوانین و مقررات",
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: ColorUtils.blue,
+                                      TextButton(
+                                        onPressed: () async {
+                                          controller.getImageFileFromAssets('logic.pdf').then((value)async{
+                                            await OpenFile.open(value.path).then((value){
+                                              print(value.message);
+                                            });
+                                          });
+                                          // await OpenFile.open('assets/logic.pdf');
+                                        },
+                                        child: Text(
+                                          "قوانین و مقررات",
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: ColorUtils.blue,
+                                          ),
                                         ),
                                       ),
                                       const Text(
-                                        " پاکار را میپذیرم!",
+                                        " تیتراژ را میپذیرم!",
                                         style: TextStyle(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -259,8 +270,7 @@ class LoginRegisterScreen extends StatelessWidget {
                                           width: controller.size.width * .8,
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
+                                                MainAxisAlignment.center,
                                             children: [
                                               // AnimatedSwitcher(
                                               //   duration:
@@ -287,11 +297,12 @@ class LoginRegisterScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                     fontSize: 18.0,
                                                     color: ColorUtils.green,
-                                                    decoration: TextDecoration.underline,
+                                                    decoration: TextDecoration
+                                                        .underline,
                                                   ),
                                                 ),
-                                                onTap: () => controller
-                                                    .forgotPassword(),
+                                                onTap: () =>
+                                                    controller.forgotPassword(),
                                               ),
                                             ],
                                           ),
@@ -339,15 +350,25 @@ class LoginRegisterScreen extends StatelessWidget {
                                         value: controller.acceptTerms,
                                         onChanged: controller.onTermsChanged,
                                       ),
-                                      Text(
-                                        "قوانین و مقررات",
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: ColorUtils.blue,
+                                      TextButton(
+                                        onPressed: () async {
+
+                                          controller.getImageFileFromAssets('logic.pdf').then((value)async{
+                                            await OpenFile.open(value.path).then((value){
+                                              print(value.message);
+                                            });
+                                          });
+                                        },
+                                        child: Text(
+                                          "قوانین و مقررات",
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: ColorUtils.blue,
+                                          ),
                                         ),
                                       ),
                                       const Text(
-                                        " پاکار را میپذیرم!",
+                                        " تیتراژ را میپذیرم!",
                                         style: TextStyle(
                                           fontSize: 12.0,
                                           color: Colors.white,

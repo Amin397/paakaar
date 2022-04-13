@@ -31,8 +31,6 @@ class RequestServiceController extends GetxController {
   List<CallModel> callList = [];
   List<CallModel> stateFiltered = [];
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   late GetPage targetPage;
   late String title;
   bool showAddCallOutButton = false;
@@ -150,6 +148,7 @@ class RequestServiceController extends GetxController {
       element.isSelected = false;
     }
     item.isSelected = true;
+
     showStates = false;
     unFocus();
     filterState(item);
@@ -161,6 +160,7 @@ class RequestServiceController extends GetxController {
     if (item.id == 0) {
       callList = listOfCallOuts;
       stateFiltered = listOfCallOuts;
+      listOfDistricts.clear();
     } else {
       for (var element in listOfCallOuts) {
         if (element.state.id == item.id || element.state.id == 0) {
@@ -223,21 +223,34 @@ class RequestServiceController extends GetxController {
     if (showAddCallOutButton) return [];
     List<UserModel> list = listOfExperts;
 
+    print('*****************${listOfGroups.length}');
     switch (listOfGroups.length) {
       case 0:
+        print('case 0');
+
         list = listOfExperts
             .where((element) =>
                 element.fields!.any((element) => element.id == field.id))
             .toList();
         break;
       case 1:
+        print('case 1');
         list = listOfExperts
             .where((element) => element.categories!
                 .any((element) => element.id == listOfGroups.first.id))
             .toList();
         break;
 
+      case 2:
+        {
+          print('case 2');
+          list = listOfExperts
+              .where((element) => element.specialities?.any((element) => element.id == listOfGroups[1].id) ?? false)
+              .toList();
+          break;
+        }
       case 3:
+        print('case 3');
         list = listOfExperts
             .where((element) => element.specialities!
                 .any((element) => element.id == listOfGroups[2].id))
@@ -457,11 +470,11 @@ class RequestServiceController extends GetxController {
       }
       isDataLoaded.value = true;
       listOfCallOuts = [];
-      if(Globals.userStream.user!.specialities!.isNotEmpty){
+      if (Globals.userStream.user!.specialities!.isNotEmpty) {
         field = Globals.userStream.user!.specialities!.last;
       }
       selectGroupsByUser();
-      if(Globals.userStream.user!.specialities!.isNotEmpty){
+      if (Globals.userStream.user!.specialities!.isNotEmpty) {
         getCallOuts(
           refresh: false,
         );
@@ -547,6 +560,7 @@ class RequestServiceController extends GetxController {
     );
 
     if (result.isDone) {
+      print('*******************');
       List<UserModel> testList = [];
       testList = UserModel.listFromJson(
         result.data,
@@ -674,12 +688,12 @@ class RequestServiceController extends GetxController {
         backgroundColor: Colors.transparent,
         content: ShowCallOutAlert(
           message: message,
-          id:id,
-          field:field,
+          id: id,
+          field: field,
         ),
       ),
     ).then((value) {
-      if(!value['back']){
+      if (!value['back']) {
         if (id != 2) {
           Get.toNamed(
             RoutingUtils.addCallOut.name,

@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:paakaar/Models/Auth/user.dart';
 import 'package:paakaar/Models/Locations/CityModel.dart';
@@ -154,10 +153,11 @@ class DeveloperTeam {
     streamController.sink.add(tapCount);
   }
 }
-
 class Globals {
   static UserStream userStream = UserStream();
   static CityStream city = CityStream();
   static NotificationStream notification = NotificationStream();
   static DeveloperTeam developerTeam = DeveloperTeam();
 }
+
+

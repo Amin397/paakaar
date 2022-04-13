@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:paakaar/Controllers/MainPage/dashboard_controller.dart';
 import 'package:paakaar/Controllers/Profile/Widgets/cv_item_data_dialog.dart';
-import 'package:paakaar/Controllers/Profile/Widgets/show_worker_alert_dialog.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Models/Auth/social_media_model.dart';
 import 'package:paakaar/Models/Auth/user.dart';
@@ -37,15 +37,19 @@ import 'package:paakaar/Utils/routing_utils.dart';
 import 'package:paakaar/Utils/view_utils.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+import '../../main.dart';
 import 'Widgets/save_alert_widget.dart';
 
-class CompleteProfileController extends GetxController {
+class CompleteProfileController extends GetxController
+    with SingleGetTickerProviderMixin {
   final ProjectRequestUtils requests = ProjectRequestUtils();
   List<FieldModel> listOfSubSubGroups =
       Globals.userStream.user?.specialities ?? [];
   List<CustomFileModel> listOfCvFiles = [];
   List<FieldModel> listOfFields = [];
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  int? tabControllerIndex = 0;
+  DashboardController dashi = Get.find();
 
   final TextEditingController searchController = TextEditingController();
   late List<ProfileStateModel> listOfStates;
@@ -56,9 +60,6 @@ class CompleteProfileController extends GetxController {
 
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = <TargetFocus>[];
-
-  GlobalKey keyBottomNavigation1 = GlobalKey();
-  GlobalKey keyBottomNavigation2 = GlobalKey();
 
   void showTutorial() {
     initTargets();
@@ -88,10 +89,17 @@ class CompleteProfileController extends GetxController {
           print("skip");
         },
       )..show();
+      box.write(
+        'firstEnter',
+        true,
+      );
 
       update();
     }
   }
+
+  GlobalKey keyBottomNavigation1 = GlobalKey();
+  GlobalKey keyBottomNavigation2 = GlobalKey();
 
   void initTargets() {
     targets.clear();
@@ -345,6 +353,10 @@ class CompleteProfileController extends GetxController {
 
   @override
   void onInit() {
+    // showTutorial();
+    // keyBottomNavigation1  = GlobalKey();
+    // keyBottomNavigation2  = GlobalKey();
+
     getSocialMedias();
     getStates();
     getFields();
@@ -366,7 +378,15 @@ class CompleteProfileController extends GetxController {
       const Duration(milliseconds: 1000),
       showTutorial,
     );
+
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    // keyBottomNavigation1  = GlobalKey();
+    // keyBottomNavigation2  = GlobalKey();
   }
 
   void makeCityActive(item) {
@@ -429,9 +449,9 @@ class CompleteProfileController extends GetxController {
       int sizeInBytes = file.lengthSync();
       double sizeInMb = sizeInBytes / (1024 * 1024);
       // if (sizeInMb > (Globals.userStream.user?.maxCvFileSize ?? 10)) {
-      if (sizeInMb > 25) {
+      if (sizeInMb > 30) {
         ViewUtils.showErrorDialog(
-          "حجم فایل انتخاب شده بیشتر از حد مجاز است",
+          "حجم فایل انتخاب شده بیشتر از 30 مگا بایت است",
         );
         return;
       }
@@ -458,10 +478,14 @@ class CompleteProfileController extends GetxController {
       ViewUtils.showSuccessDialog(
         "بارگذاری فایل با موفقیت انجام شد",
       );
-      listOfCvFiles.add(
-        file!,
+      save(
+        fromAppBar: false,
+        fabAction: false,
       );
-      update();
+      // listOfCvFiles.add(
+      //   file!,
+      // );
+      // update();
     } else {
       ViewUtils.showErrorDialog(
         'بارگذاری فایل با خطا مواجه شد',
@@ -469,17 +493,13 @@ class CompleteProfileController extends GetxController {
     }
   }
 
-  void save({bool? fromAppBar}) async {
-    final box = GetStorage();
-    var firstEnter = box.read('firstEnter');
+  @override
+  void onClose() {
+    Get.delete<CompleteProfileController>();
+    super.onClose();
+  }
 
-    if (firstEnter is bool) {
-    } else {
-      var firstEnter = box.write(
-        'firstEnter',
-        true,
-      );
-    }
+  void save({bool? fromAppBar, required bool? fabAction}) async {
     print(Globals.userStream.user!.avatarFile);
     List<int> listOfSubSubGroups =
         this.listOfSubSubGroups.map((e) => e.id).toList();
@@ -544,18 +564,25 @@ class CompleteProfileController extends GetxController {
       Globals.userStream.changeUser(userModel);
       getCvFiles();
       if (fromAppBar == true) {
+        onClose();
+
         Get.back();
-        Get.back();
+        Get.offAndToNamed(RoutingUtils.dashboard.name);
+        // Get.back();
       }
       // Future.delayed(Duration(seconds: 5),(){
       //   getUserData(
       //     fromAppBar: fromAppBar,
       //   );
       // });
-      ViewUtils.showSuccessDialog(
-        'تغییرات با موفقیت اعمال شد',
-      );
+
+      if (fabAction!) {
+        ViewUtils.showSuccessDialog(
+          'تغییرات با موفقیت اعمال شد',
+        );
+      }
     } else {
+      onClose();
       EasyLoading.dismiss();
       ViewUtils.showSuccessDialog(
         result.data.toString(),
@@ -826,6 +853,10 @@ class CompleteProfileController extends GetxController {
             ),
           );
         }
+        save(
+          fromAppBar: false,
+          fabAction: false,
+        );
         return res;
       }
     }
@@ -890,14 +921,8 @@ class CompleteProfileController extends GetxController {
     }
   }
 
-  void showWorkerAlert() {
-    showDialog(
-      context: Get.context!,
-      builder: (BuildContext context) => const AlertDialog(
-        backgroundColor: Colors.transparent,
-        contentPadding: EdgeInsets.zero,
-        content: ShowWorkerAlertDialog(),
-      ),
-    );
+  void changeTab(int s) {
+    tabControllerIndex = s;
+    update();
   }
 }

@@ -17,9 +17,9 @@ class CompleteRegister extends StatefulWidget {
     required this.mobile,
     required this.code,
   });
+
   final String mobile;
   final String code;
-
 
   @override
   _CompleteRegisterState createState() => _CompleteRegisterState();
@@ -45,56 +45,106 @@ class _CompleteRegisterState extends State<CompleteRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.height * .5,
-      width: Get.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Material(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 12.0,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SizedBox(
+        width: Get.width,
+        height: Get.height * .57,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if(Get.width > 400.0){
+              return Container(
+                height: Get.height * .5,
+                width: Get.width,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 8.0,
                 ),
-                Text(
-                  'تکمیل اطلاعات',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: ColorUtils.textColor,
-                  ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.white,
                 ),
-                // const SizedBox(
-                //   height: 12.0,
-                // ),
-                body(),
-                // const SizedBox(
-                //   height: 12.0,
-                // ),
-                finalBtn(),
-                // const SizedBox(
-                //   height: 12.0,
-                // ),
-              ],
-            ),
-          ),
+                child: Column(
+                  children: [
+                    Text(
+                      'تکمیل اطلاعات',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: ColorUtils.textColor,
+                      ),
+                    ),
+                    // const SizedBox(
+                    //   height: 12.0,
+                    // ),
+                    body(),
+                    // const SizedBox(
+                    //   height: 12.0,
+                    // ),
+                    finalBtn(),
+                    // const SizedBox(
+                    //   height: 12.0,
+                    // ),
+                  ],
+                ),
+              );
+            }else{
+              return Container(
+                height: Get.height * .55,
+                width: Get.width,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 8.0,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'تکمیل اطلاعات',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: ColorUtils.textColor,
+                      ),
+                    ),
+                    // const SizedBox(
+                    //   height: 12.0,
+                    // ),
+                    body(),
+                    // const SizedBox(
+                    //   height: 12.0,
+                    // ),
+                    finalBtn(),
+                    // const SizedBox(
+                    //   height: 12.0,
+                    // ),
+                  ],
+                ),
+              );
+            }
+          },
         ),
       ),
     );
   }
 
   Widget finalBtn() {
-    return WidgetUtils.neuButton(
-      text: "ثبت نام",
-      onTap: () => finalize(),
-      enabledBevel: 8.0,
-      textColor: Colors.white,
-      enabled: true,
+    return Expanded(
+      child: SizedBox(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: WidgetUtils.neuButton(
+            text: "ثبت نام",
+            onTap: () => finalize(),
+            enabledBevel: 8.0,
+            textColor: Colors.white,
+            enabled: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -136,9 +186,9 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         //   height: Get.height / 50,
         // ),
         genderSelect(),
-        SizedBox(
-          height: Get.height * .1,
-        ),
+        // SizedBox(
+        //   height: Get.height * .1,
+        // ),
       ],
     );
   }
@@ -228,6 +278,7 @@ class _CompleteRegisterState extends State<CompleteRegister> {
     void Function(String)? onChange,
     required FocusNode focusNode,
     int maxLen = 9999,
+    TextInputType? keyBoardType,
     TextAlign align = TextAlign.right,
   }) {
     return Padding(
@@ -237,6 +288,7 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         controller: controller,
         onChanged: onChange,
         focusNode: focusNode,
+        keyboardType: keyBoardType,
         textInputAction: TextInputAction.next,
         inputFormatters: [
           LengthLimitingTextInputFormatter(
@@ -245,10 +297,11 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         ],
         style: TextStyle(
           color: ColorUtils.textColor,
+          fontSize: 12.0,
         ),
         cursorColor: ColorUtils.mainRed,
         decoration: InputDecoration(
-          labelText: name,
+          hintText: name,
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: ColorUtils.mainRed,
@@ -258,9 +311,6 @@ class _CompleteRegisterState extends State<CompleteRegister> {
             borderSide: BorderSide(
               color: ColorUtils.textColor,
             ),
-          ),
-          labelStyle: TextStyle(
-            color: ColorUtils.textColor.withOpacity(0.7),
           ),
         ),
       ),
@@ -280,7 +330,6 @@ class _CompleteRegisterState extends State<CompleteRegister> {
       controller: lastNameController,
       focusNode: lastNameFocusNode,
       name: "نام خانوادگی",
-
     );
   }
 
@@ -392,12 +441,12 @@ class _CompleteRegisterState extends State<CompleteRegister> {
       } else {
         Future.delayed(
           Duration.zero,
-              () => moarefiCodeTextController.selection =
-              TextSelection.fromPosition(
-                TextPosition(
-                  offset: moarefiCodeTextController.text.length,
-                ),
-              ),
+          () =>
+              moarefiCodeTextController.selection = TextSelection.fromPosition(
+            TextPosition(
+              offset: moarefiCodeTextController.text.length,
+            ),
+          ),
         );
       }
     }
@@ -414,7 +463,9 @@ class _CompleteRegisterState extends State<CompleteRegister> {
       // fatherName: fatherNameController.text,
       // referer: refererController.text,
       code: widget.code,
-      moarefiCode: moarefiCodeTextController.text.isEmpty? '':moarefiCodeTextController.text,
+      moarefiCode: moarefiCodeTextController.text.isEmpty
+          ? ''
+          : moarefiCodeTextController.text,
       mobile: widget.mobile,
     )
         .then((ApiResult result) async {
@@ -427,7 +478,6 @@ class _CompleteRegisterState extends State<CompleteRegister> {
         await storage.write('userId', result.data['userId']);
         Get.offAllNamed(
           RoutingUtils.dashboard.name,
-
         );
       } else {
         ViewUtils.showErrorDialog(
@@ -437,11 +487,11 @@ class _CompleteRegisterState extends State<CompleteRegister> {
     });
   }
 
-
   Widget moarefiCode() {
     return _textInput(
       onChange: onChange,
       maxLen: 11,
+      keyBoardType: TextInputType.number,
       controller: moarefiCodeTextController,
       focusNode: moarefiCodeFocusNode,
       name: "کد معرف (اختیاری)",

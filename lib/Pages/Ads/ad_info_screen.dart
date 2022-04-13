@@ -151,7 +151,6 @@ class AdInfoScreen extends StatelessWidget {
   }
 
   Widget buildUser() {
-    print(ad.individualPic);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         if (constraints.maxWidth > 300.0) {

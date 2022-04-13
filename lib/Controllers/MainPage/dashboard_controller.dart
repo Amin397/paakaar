@@ -21,10 +21,13 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 class DashboardController extends GetxController {
   ScrollController? scrollController;
 
+
+
+
   final ProjectRequestUtils requests = ProjectRequestUtils();
   List<FieldModel> listOfFields = [];
   late List<UpSliderModel> listOfSliders;
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   final FRefreshController refreshController = FRefreshController();
 
   late List<TvModel> listOfTvItems;
@@ -197,16 +200,17 @@ class DashboardController extends GetxController {
   void showUpgradePlanDialog() {
     final box = GetStorage();
     if (box.read('firstLogin') is bool) {
+
     } else {
       Future.delayed(const Duration(milliseconds: 500), () {
         Get.dialog(
           UpgradePlanDialog(
-            text: Globals.userStream.user?.isExpired != true
+            text: Globals.userStream.user?.isExpired == true
                 ? "تاریخ عضویت شما به پایان رسیده است"
-                : "جهت دیده شدن و دسترسی عموم به خدمات و تخصص تان ،عضویت خودرا به ویژه ارتقاء دهید",
+                : "جهت دیده شدن و دسترسی عموم به خدمات و تخصص تان ،اشتراک ویژه تهیه فرمایید",
             fromDashboard: true,
             topText:
-                'بصورت پیش فرض ، کاربری شما عادی است و به رایگان از خدمات پاکار استفاده کنید',
+            'بصورت پیش فرض ، کاربر عادی هستید و به رایگان از خدمات تیتراژ استفاده می کنید',
           ),
           barrierColor: ColorUtils.black.withOpacity(0.5),
           barrierDismissible: Globals.userStream.user?.isExpired == false,

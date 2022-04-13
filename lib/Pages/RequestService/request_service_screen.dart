@@ -31,10 +31,8 @@ class RequestServiceScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: WidgetUtils.appBar(
           innerPage: true,
-          key: controller.scaffoldKey,
         ),
         drawer: CustomDrawerWidget(),
-        key: controller.scaffoldKey,
         floatingActionButton: controller.showAddCallOutButton
             ? FloatingActionButton.extended(
                 onPressed: () {
@@ -77,7 +75,6 @@ class RequestServiceScreen extends StatelessWidget {
               buildLastFields(),
               ViewUtils.sizedBox(50),
               _buildSelectStateAndCity(),
-
               ViewUtils.sizedBox(50),
               if (controller.showAddCallOutButton) buildCallOuts(),
               if (!controller.showAddCallOutButton) buildExperts(),
@@ -89,8 +86,7 @@ class RequestServiceScreen extends StatelessWidget {
   }
 
   Widget buildLastFields() {
-    print(controller.listOfGroups.length);
-    return Container(
+    return SizedBox(
       height: Get.height / 24,
       child: GetBuilder(
         init: controller,
@@ -237,9 +233,10 @@ class RequestServiceScreen extends StatelessWidget {
                             },
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemCount: controller.getListOfExperts.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  print(index);
                                   return AnimationConfiguration.staggeredList(
                                     position: index,
                                     child: SlideAnimation(
@@ -261,6 +258,8 @@ class RequestServiceScreen extends StatelessWidget {
   }
 
   Widget buildExpert(UserModel expert) {
+    print('amin dodool tala');
+    print(expert.id);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -312,8 +311,8 @@ class RequestServiceScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    expert.fields!.isNotEmpty
-                        ? expert.specialities!.map((e) => e.name).join('٬ ')
+                    expert.fields?.isNotEmpty ?? false
+                        ? expert.specialities?.map((e) => e.name).join('٬ ') ?? ''
                         // ? expert.fields!.first.name
                         : '',
                     style: TextStyle(
@@ -323,7 +322,7 @@ class RequestServiceScreen extends StatelessWidget {
                   ),
                   (expert.city is CityModel)
                       ? Text(
-                          expert.city!.name,
+                          expert.city?.name ?? '',
                           style: TextStyle(
                             fontSize: 11.0,
                             color: ColorUtils.textColor,
@@ -332,7 +331,7 @@ class RequestServiceScreen extends StatelessWidget {
                       : Container(),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Icon(
                 Icons.arrow_right,
                 color: ColorUtils.green,
@@ -372,25 +371,27 @@ class RequestServiceScreen extends StatelessWidget {
                                   .finishRefresh();
                             },
                             child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: controller.getListOfCallOuts.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return AnimationConfiguration.staggeredList(
-                                    position: index,
-                                    child: SlideAnimation(
-                                      child: FadeInAnimation(
-                                        child: buildCallOut(
-                                          controller.getListOfCallOuts[index],
-                                        ),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.getListOfCallOuts.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  child: SlideAnimation(
+                                    child: FadeInAnimation(
+                                      child: buildCallOut(
+                                        controller.getListOfCallOuts[index],
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         )
                       : WidgetUtils.dataNotFound("فراخوانی");
-                })
+                },
+              )
             : WidgetUtils.loadingWidget(),
       ),
     );
@@ -474,7 +475,8 @@ class RequestServiceScreen extends StatelessWidget {
                                 color: ColorUtils.mainRed,
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: call.isAccepted
                                     ? [
                                         const Text(
@@ -490,7 +492,8 @@ class RequestServiceScreen extends StatelessWidget {
                                           "پیشنهادات:",
                                           style: TextStyle(
                                             fontSize: 9.0,
-                                            color: Colors.white.withOpacity(0.7),
+                                            color:
+                                                Colors.white.withOpacity(0.7),
                                           ),
                                         ),
                                         Text(
@@ -681,7 +684,9 @@ class RequestServiceScreen extends StatelessWidget {
                       width: 8.0,
                     ),
                     // (controller.showAddCallOutButton)?buildSearchAndFilters():Container(),
-                    (controller.showAddCallOutButton)?Container():Container(),
+                    (controller.showAddCallOutButton)
+                        ? Container()
+                        : Container(),
 
                     (controller.showAddCallOutButton)
                         ? Container()
@@ -716,7 +721,6 @@ class RequestServiceScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 GetBuilder(
                   init: controller,
                   builder: (ctx) {
@@ -744,8 +748,9 @@ class RequestServiceScreen extends StatelessWidget {
                           ),
                         ],
                       );
+                    } else {
+                      return Container();
                     }
-                    return Container();
                   },
                 ),
               ],

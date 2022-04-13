@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Models/Auth/user.dart';
 import 'package:paakaar/Models/version_model.dart';
@@ -10,11 +14,15 @@ import 'package:paakaar/Utils/Api/Base/base_request_util.dart';
 import 'package:paakaar/Utils/Api/project_request_utils.dart';
 import 'package:paakaar/Utils/routing_utils.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:paakaar/Utils/view_utils.dart';
 
 import '../../Widgets/update_alert.dart';
 
 class SplashController extends GetxController {
   final ProjectRequestUtils _projectRequestUtils = ProjectRequestUtils();
+
+  FirebaseMessaging? messaging;
+  String? token;
 
   @override
   void onInit() {
@@ -26,14 +34,14 @@ class SplashController extends GetxController {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     VersionModel? versionModel;
     _projectRequestUtils.getAppVersion().then(
-      (value)async {
+      (value) async {
         if (value.isDone) {
           versionModel = VersionModel.fromJson(value.data);
           if (packageInfo.version == versionModel!.current) {
             handleStart();
           } else {
             //force alert
-             final amin = await showDialog(
+            final versionTrue = await showDialog(
               context: Get.context!,
               barrierDismissible: false,
               builder: (BuildContext context) => AlertDialog(
@@ -45,15 +53,18 @@ class SplashController extends GetxController {
                 ),
               ),
             );
-             if(amin){
-               // print(amin);
-               handleStart();
-             }
+
+            if (versionTrue) {
+              // print(amin);
+              handleStart();
+            }
           }
         }
       },
     );
   }
+
+
 
   void handleStart() async {
     final box = GetStorage();
@@ -73,16 +84,35 @@ class SplashController extends GetxController {
           Globals.notification
               .setNotification(notification: notif, messagesList: notifList);
         }
-        Get.offAndToNamed(
-          RoutingUtils.dashboard.name,
-        );
+        getPushId();
         return;
       }
+    } else {
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.offAndToNamed(
+          RoutingUtils.appIntroScreen.name,
+        );
+      });
     }
-    Future.delayed(const Duration(seconds: 2), () {
+  }
+
+  getPushId() async {
+    if (Firebase.apps.isNotEmpty) {
+      messaging = FirebaseMessaging.instance;
+      token = await messaging!.getToken();
+    }
+
+    ApiResult result = await _projectRequestUtils.sendPushId(
+      pushId: token,
+    );
+    if (result.isDone) {
       Get.offAndToNamed(
-        RoutingUtils.appIntroScreen.name,
+        RoutingUtils.dashboard.name,
       );
-    });
+    } else {
+      ViewUtils.showErrorDialog(
+        'خطا در ارتباط با سرور',
+      );
+    }
   }
 }

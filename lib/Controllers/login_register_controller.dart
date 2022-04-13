@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Models/Auth/user.dart';
 import 'package:paakaar/Plugins/get/get.dart';
@@ -18,7 +22,7 @@ class LoginRegisterController extends GetxController {
   RxBool isRegister = false.obs;
   RxBool isForgot = false.obs;
   RxBool getFingerprint = false.obs;
-
+  File? file;
   Rx<TextEditingController> mobileController =
       (TextEditingController()).obs;
   TextEditingController codeController =  TextEditingController();
@@ -33,6 +37,14 @@ class LoginRegisterController extends GetxController {
   bool acceptTerms = false;
 
   // methods
+
+
+
+  @override
+  void onInit() {
+    // createFile();
+    super.onInit();
+  }
 
   void onChange(String string) {
     List<String> list = string.split('');
@@ -101,12 +113,7 @@ class LoginRegisterController extends GetxController {
   }
 
   void register() async {
-    if (codeController.text.length != 5) {
-      ViewUtils.showErrorDialog(
-        "لطفا کد تایید را به صورت کامل وارد کنید (۴ رقم)",
-      );
-      return;
-    }
+
     EasyLoading.show();
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     String? token = await messaging.getToken();
@@ -321,6 +328,37 @@ class LoginRegisterController extends GetxController {
 
   void onTermsChanged(bool? value) {
     acceptTerms = value!;
+    // if(codeController.text.length == 5){
+
+    // }
     refresh();
+    submit();
   }
+
+
+
+
+
+  Future createFile()async{
+    final directory = await getTemporaryDirectory();
+    print(await rootBundle.loadString('assets/logo.png'));
+    // if(!await File(directory.path + '/assets/logo.png').exists()){
+    //   file = File(directory.path + '/assets/logo.png');
+    //   print('nist');
+    // }else{
+    //   print('hast');
+    //   file = File(directory.path + '/assets/logo.png');
+    // }
+  }
+
+
+  Future<File> getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load('assets/$path');
+
+    final file = File('${(await getTemporaryDirectory()).path}/$path');
+    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    return file;
+  }
+
 }

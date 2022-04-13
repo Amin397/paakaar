@@ -8,7 +8,6 @@ import 'package:paakaar/Utils/Api/project_request_utils.dart';
 import 'package:paakaar/Utils/routing_utils.dart';
 
 class MyDrawerController extends GetxController {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final ProjectRequestUtils requests = ProjectRequestUtils();
 
@@ -97,7 +96,7 @@ class MyDrawerController extends GetxController {
         if (!value['back']) {
           if (ad!) {
             if (id != 2) {
-              scaffoldKey.currentState?.openEndDrawer();
+              // scaffoldKey.currentState?.openEndDrawer();
               Get.toNamed(
                 RoutingUtils.adAdd.name,
               );

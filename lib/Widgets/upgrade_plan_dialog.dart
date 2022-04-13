@@ -32,13 +32,28 @@ class UpgradePlanDialog extends StatelessWidget {
                 ),
                 width: Get.width / 1.2,
                 height: Get.height * .45,
-                child: Stack(
-                  alignment: Alignment.topCenter,
+                child: Column(
                   children: [
-
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Icon(
+                            Ionicons.close_outline,
+                          ),
+                        ),
+                      ),
+                    ),
                     LottieBuilder.asset(
                       ImageUtils.levelUp,
+                      width: 150.0,
+                      height: Get.height * .06,
                     ),
+                    SizedBox(height: 16.0,),
                     SizedBox(
                       width: Get.width / 1.4,
                       child: Center(
@@ -53,78 +68,54 @@ class UpgradePlanDialog extends StatelessWidget {
                         ),
                       ),
                     ),
-                    ViewUtils.sizedBox(),
+                    // ViewUtils.sizedBox(),
                     // if (Globals.userStream.user?.isExpired == false)
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: GestureDetector(
-                        onTap: () {
-                          // if(fromDashboard!){
-                          //   Get.close(1);
-                          // }else{
-                          //   Get.close(1);
-                            Get.back();
-                          // }
-                        },
-                        child: const Icon(
-                          Ionicons.close_outline,
+
+                    ViewUtils.sizedBox(),
+                    Text(
+                      "ارتقا عضویت",
+                      style: TextStyle(
+                        color: ColorUtils.red,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    ViewUtils.sizedBox(),
+                    SizedBox(
+                      width: Get.width / 1.4,
+                      child: Center(
+                        child: AutoSizeText(
+                          text!,
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: ColorUtils.textColor,
+                            height: 1.5,
+                          ),
+                          minFontSize: 1.0,
                         ),
                       ),
                     ),
-                    ViewUtils.sizedBox(),
-                    Positioned(
-                      bottom: 0.0,
-                      child: Column(
-                        children: [
-                          ViewUtils.sizedBox(),
-                          Text(
-                            "ارتقا عضویت",
-                            style: TextStyle(
-                              color: ColorUtils.red,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                          ViewUtils.sizedBox(),
-                          SizedBox(
-                            width: Get.width / 1.4,
-                            child: Center(
-                              child: AutoSizeText(
-                                text!,
-                                maxLines: 2,
-                                style: TextStyle(
-                                  color: ColorUtils.textColor,
-                                  height: 1.5,
-                                ),
-                                minFontSize: 1.0,
-                              ),
-                            ),
-                          ),
-                          ViewUtils.sizedBox(),
-                          SizedBox(
-                            width: Get.width / 1.4,
-                            child: WidgetUtils.button(
-                              text: "انتخاب اشتراک",
-                              onTap: () {
-                                if(fromDashboard!){
-                                  Get.back();
-                                  Get.toNamed(
-                                    RoutingUtils.upgradePlan.name,
-                                  );
-                                }else{
-                                  Get.back();
-                                  Get.back();
-                                  Get.toNamed(
-                                    RoutingUtils.upgradePlan.name,
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                          ViewUtils.sizedBox(75),
-                        ],
+                    Spacer(),
+                    SizedBox(
+                      width: Get.width / 1.4,
+                      child: WidgetUtils.button(
+                        text: "انتخاب اشتراک",
+                        onTap: () {
+                          if(fromDashboard!){
+                            Get.back();
+                            Get.toNamed(
+                              RoutingUtils.upgradePlan.name,
+                            );
+                          }else{
+                            Get.back();
+                            Get.back();
+                            Get.toNamed(
+                              RoutingUtils.upgradePlan.name,
+                            );
+                          }
+                        },
                       ),
                     ),
+                    ViewUtils.sizedBox(),
                   ],
                 ),
               ),
@@ -138,13 +129,28 @@ class UpgradePlanDialog extends StatelessWidget {
                 ),
                 width: Get.width * .8,
                 height: Get.height * .45,
-                child: Stack(
-                  alignment: Alignment.topCenter,
+                child: Column(
                   children: [
-
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Icon(
+                            Ionicons.close_outline,
+                          ),
+                        ),
+                      ),
+                    ),
                     LottieBuilder.asset(
                       ImageUtils.levelUp,
+                      width: 150.0,
+                      height: Get.height * .06,
                     ),
+                    const SizedBox(height: 10.0,),
                     SizedBox(
                       width: Get.width / 1.4,
                       child: Center(
@@ -159,78 +165,54 @@ class UpgradePlanDialog extends StatelessWidget {
                         ),
                       ),
                     ),
-                    ViewUtils.sizedBox(),
+                    // ViewUtils.sizedBox(),
                     // if (Globals.userStream.user?.isExpired == false)
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: GestureDetector(
-                        onTap: () {
-                          // if(fromDashboard!){
-                          //   Get.close(1);
-                          // }else{
-                          //   Get.close(1);
-                          Get.back();
-                          // }
-                        },
-                        child: const Icon(
-                          Ionicons.close_outline,
+
+                    ViewUtils.sizedBox(),
+                    Text(
+                      "ارتقا عضویت",
+                      style: TextStyle(
+                        color: ColorUtils.red,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    ViewUtils.sizedBox(),
+                    SizedBox(
+                      width: Get.width / 1.4,
+                      child: Center(
+                        child: AutoSizeText(
+                          text!,
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: ColorUtils.textColor,
+                            height: 1.5,
+                          ),
+                          minFontSize: 1.0,
                         ),
                       ),
                     ),
-                    ViewUtils.sizedBox(),
-                    Positioned(
-                      bottom: 0.0,
-                      child: Column(
-                        children: [
-                          ViewUtils.sizedBox(),
-                          Text(
-                            "ارتقا عضویت",
-                            style: TextStyle(
-                              color: ColorUtils.red,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                          ViewUtils.sizedBox(),
-                          SizedBox(
-                            width: Get.width / 1.4,
-                            child: Center(
-                              child: AutoSizeText(
-                                text!,
-                                maxLines: 2,
-                                style: TextStyle(
-                                  color: ColorUtils.textColor,
-                                  height: 1.5,
-                                ),
-                                minFontSize: 1.0,
-                              ),
-                            ),
-                          ),
-                          ViewUtils.sizedBox(),
-                          SizedBox(
-                            width: Get.width / 1.4,
-                            child: WidgetUtils.button(
-                              text: "انتخاب اشتراک",
-                              onTap: () {
-                                if(fromDashboard!){
-                                  Get.back();
-                                  Get.toNamed(
-                                    RoutingUtils.upgradePlan.name,
-                                  );
-                                }else{
-                                  Get.back();
-                                  Get.back();
-                                  Get.toNamed(
-                                    RoutingUtils.upgradePlan.name,
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                          ViewUtils.sizedBox(75),
-                        ],
+                    Spacer(),
+                    SizedBox(
+                      width: Get.width / 1.4,
+                      child: WidgetUtils.button(
+                        text: "انتخاب اشتراک",
+                        onTap: () {
+                          if(fromDashboard!){
+                            Get.back();
+                            Get.toNamed(
+                              RoutingUtils.upgradePlan.name,
+                            );
+                          }else{
+                            Get.back();
+                            Get.back();
+                            Get.toNamed(
+                              RoutingUtils.upgradePlan.name,
+                            );
+                          }
+                        },
                       ),
                     ),
+                    ViewUtils.sizedBox(),
                   ],
                 ),
               ),

@@ -2,11 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Plugins/get/get.dart';
 import 'package:paakaar/Plugins/neu/flutter_neumorphic.dart';
 import 'package:paakaar/Utils/color_utils.dart';
 import 'package:paakaar/Utils/routing_utils.dart';
 
+import '../../../main.dart';
 import '../complete_profile_controller.dart';
 
 class SaveAlertDialog extends StatelessWidget {
@@ -21,7 +23,9 @@ class SaveAlertDialog extends StatelessWidget {
       width: Get.width,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -43,7 +47,7 @@ class SaveAlertDialog extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: Get.width,
             height: Get.height * .05,
             child: Row(
@@ -52,8 +56,10 @@ class SaveAlertDialog extends StatelessWidget {
                   flex: 1,
                   child: InkWell(
                     onTap: () {
-                      controller!.save(fromAppBar: true);
-                      Get.back();
+                      controller!.save(
+                        fromAppBar: true,
+                        fabAction: true
+                      );
                     },
                     child: Container(
                       height: double.maxFinite,
@@ -94,15 +100,23 @@ class SaveAlertDialog extends StatelessWidget {
                     onTap: () {
                       final box = GetStorage();
                       var firstEnter = box.read('firstEnter');
-
                       if (firstEnter is bool) {
+
+                        // Get.offAndToNamed(RoutingUtils.dashboard.name);
+                        // Future.delayed(Duration(seconds: 3) , (){
+                        //   Get.back();
+                        // });
+
                       } else {
                         var firstEnter = box.write(
                           'firstEnter',
                           true,
                         );
                       }
-                      Get.toNamed(RoutingUtils.dashboard.name);
+
+                      // Globals.profileGlobalsKeys.clearAllKeys();
+                      controller!.onClose();
+                      Get.offAndToNamed(RoutingUtils.dashboard.name);
                     },
                     child: SizedBox(
                       height: double.maxFinite,

@@ -35,7 +35,7 @@ class ChatScreen extends StatelessWidget {
   Widget buildList() {
     return Padding(
       padding: ViewUtils.scaffoldPadding,
-      child: Container(
+      child: SizedBox(
         height: Get.height / 1.2,
         child: Column(
           children: [
@@ -114,7 +114,7 @@ class ChatScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         if (constraints.maxWidth > 300.0) {
-          return Container(
+          return SizedBox(
             height: Get.height / 18,
             child: Material(
               type: MaterialType.transparency,
@@ -208,7 +208,7 @@ class ChatScreen extends StatelessWidget {
             ),
           );
         } else {
-          return Container(
+          return SizedBox(
             height: Get.height / 17,
             child: Material(
               type: MaterialType.transparency,

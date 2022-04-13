@@ -44,7 +44,7 @@ class AppIntroScreen extends StatelessWidget {
                                       e.title,
                                       textAlign: TextAlign.right,
                                       textDirection: TextDirection.rtl,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: ColorUtils.black,
                                         fontSize: 21.0,
                                         fontWeight: FontWeight.bold,
@@ -56,6 +56,15 @@ class AppIntroScreen extends StatelessWidget {
                                       ),
                                       child: Html(
                                         data: e.text,
+                                        style: {
+                                          '*': Style(
+                                            textAlign: TextAlign.justify,
+                                            direction: TextDirection.rtl,
+                                            lineHeight: LineHeight.percent(
+                                              120.0,
+                                            ),
+                                          ),
+                                        },
                                       ),
                                     ),
                                     image: Center(
@@ -68,7 +77,7 @@ class AppIntroScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    decoration: PageDecoration(
+                                    decoration: const PageDecoration(
                                       boxDecoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
@@ -86,10 +95,10 @@ class AppIntroScreen extends StatelessWidget {
                                   RoutingUtils.loginRegister.name,
                                 );
                               },
-                              next: Icon(Icons.navigate_next),
+                              next: const Icon(Icons.navigate_next),
                               showSkipButton: true,
-                              skip: Text("رد کردن"),
-                              done: Text(
+                              skip: const Text("رد کردن"),
+                              done: const Text(
                                 "ورود به اپ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
@@ -122,7 +131,7 @@ class AppIntroScreen extends StatelessWidget {
                                         e.title,
                                         textAlign: TextAlign.right,
                                         textDirection: TextDirection.rtl,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: ColorUtils.black,
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
@@ -136,10 +145,11 @@ class AppIntroScreen extends StatelessWidget {
                                           data: e.text,
                                           style: {
                                             '*': Style(
-                                              textAlign: TextAlign.right,
+                                              textAlign: TextAlign.justify,
                                               direction: TextDirection.rtl,
+
                                               lineHeight: LineHeight.percent(
-                                                140.0,
+                                                120.0,
                                               ),
                                             ),
                                           },
@@ -159,8 +169,8 @@ class AppIntroScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      decoration: PageDecoration(
-                                        boxDecoration: BoxDecoration(
+                                      decoration: const PageDecoration(
+                                        boxDecoration: const BoxDecoration(
                                           color: Colors.white,
                                         ),
                                       ),
@@ -177,18 +187,18 @@ class AppIntroScreen extends StatelessWidget {
                                   RoutingUtils.loginRegister.name,
                                 );
                               },
-                              next: Icon(
+                              next: const Icon(
                                 Icons.navigate_next,
                                 size: 20.0,
                               ),
                               showSkipButton: true,
-                              skip: Text(
+                              skip: const Text(
                                 "رد کردن",
                                 style: TextStyle(
                                   fontSize: 12.0,
                                 ),
                               ),
-                              done: Text(
+                              done: const Text(
                                 "ورود به اپ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),

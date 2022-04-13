@@ -23,10 +23,8 @@ class MyAdsScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.white,
-        key: controller.scaffoldKey,
         appBar: WidgetUtils.appBar(
           innerPage: true,
-          key: controller.scaffoldKey,
         ),
         drawer: CustomDrawerWidget(),
         floatingActionButton: GetBuilder(
@@ -130,7 +128,7 @@ class MyAdsScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   width: Get.width / 4,
                   height: Get.width / 4,
                   child: ClipRRect(
@@ -151,7 +149,7 @@ class MyAdsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width:
                         (Get.width) - (((Get.width / 4)* 2)),
                     height: 40.0,
@@ -160,7 +158,7 @@ class MyAdsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             child: AutoSizeText(
                               ad.title,
                               maxLines: 2,
@@ -188,7 +186,7 @@ class MyAdsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 AdModel.getStatus(ad.status),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.white,
                                 ),
@@ -199,7 +197,7 @@ class MyAdsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: (Get.width) -
                         (8.0 + (Get.width / 4) + 16 + Get.width / 4),
                     child: Text(
@@ -212,7 +210,7 @@ class MyAdsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: (Get.width) -
                         (8.0 + (Get.width / 4) + 16 + Get.width / 4),
                     child: Text(

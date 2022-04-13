@@ -32,8 +32,13 @@ import 'package:paakaar/Widgets/Shared/video_player_dialog.dart';
 import 'package:paakaar/Widgets/Shared/voice_player_dialog.dart';
 import 'package:paakaar/Widgets/custom_drawer_widget.dart';
 
+import '../../main.dart';
+import '../../main.dart';
+import '../../main.dart';
+
 class CompleteProfileScreen extends StatelessWidget {
   final bool isDirect;
+
   final CompleteProfileController controller = Get.put(
     CompleteProfileController(),
   );
@@ -52,16 +57,13 @@ class CompleteProfileScreen extends StatelessWidget {
         onWillPop: () async {
           controller.unFocus();
           controller.showSaveAlert();
-          // if (canBack == true) {
-          //   return true;
-          // }
           return false;
         },
         child: Scaffold(
           appBar: isDirect
               ? WidgetUtils.appBar(
                   innerPage: true,
-                  key: controller.scaffoldKey,
+                  key: scaffoldKey,
                   onTap: () async {
                     controller.unFocus();
                     controller.showSaveAlert();
@@ -69,64 +71,71 @@ class CompleteProfileScreen extends StatelessWidget {
               : AppBar(
                   toolbarHeight: 0.0,
                 ),
-
           drawer: CustomDrawerWidget(),
           floatingActionButton: KeyboardVisibilityBuilder(
             builder: (context, isKeyboardVisible) {
               return !isKeyboardVisible
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: Get.width / 12,
-                        ),
-                        FloatingActionButton.extended(
-                          backgroundColor: ColorUtils.mainRed.shade600,
-                          elevation: 4.0,
-
-                          highlightElevation: 4.0,
-                          focusElevation: 4.0,
-                          hoverElevation: 4.0,
-                          onPressed: () {
-                            controller.unFocus();
-                            dashi.currentPage.value = 1;
-                            // Get.dialog(
-                            //   CompleteProfileDialog(),
-                            //   barrierColor: Colors.black.withOpacity(0.5),
-                            // );
-                            // return;
-                            Get.toNamed(
-                              RoutingUtils.upgradePlan.name,
-                            );
-                          },
-                          foregroundColor: Colors.white,
-                          icon: const Icon(
-                            Icons.upgrade,
+                  ? GetBuilder(
+                      init: controller,
+                      builder: (ctx) => Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: Get.width / 12,
                           ),
-                          label: const Text(
-                            "ارتقا عضویت",
+                          FloatingActionButton.extended(
+                            backgroundColor: ColorUtils.orange.shade900,
+                            elevation: 4.0,
+                            highlightElevation: 4.0,
+                            focusElevation: 4.0,
+                            hoverElevation: 4.0,
+                            heroTag: 'tag1',
+                            onPressed: () {
+                              controller.unFocus();
+                              // dashi.currentPage.value = 1;
+                              // Get.dialog(
+                              //   CompleteProfileDialog(),
+                              //   barrierColor: Colors.black.withOpacity(0.5),
+                              // );
+                              // return;
+                              Get.toNamed(
+                                RoutingUtils.upgradePlan.name,
+                              );
+                            },
+                            foregroundColor: Colors.white,
+                            icon: const Icon(
+                              Icons.upgrade,
+                            ),
+                            label: const Text(
+                              "تهیه اشتراک",
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        FloatingActionButton.extended(
-                          backgroundColor: ColorUtils.green.shade600,
-                          elevation: 4.0,
-                          highlightElevation: 4.0,
-                          focusElevation: 4.0,
-                          hoverElevation: 4.0,
-                          onPressed: () {
-                            controller.unFocus();
-                            controller.save();
-                          },
-                          foregroundColor: Colors.white,
-                          icon: const Icon(
-                            Icons.save_outlined,
-                          ),
-                          label: const Text(
-                            "ذخیره",
-                          ),
-                        ),
-                      ],
+                          const Spacer(),
+                          (controller.tabControllerIndex! > 0)
+                              ? const SizedBox()
+                              : FloatingActionButton.extended(
+                                  backgroundColor: ColorUtils.green.shade600,
+                                  elevation: 4.0,
+                                  highlightElevation: 4.0,
+                                  focusElevation: 4.0,
+                                  heroTag: 'tag2',
+                                  hoverElevation: 4.0,
+                                  onPressed: () {
+                                    controller.unFocus();
+                                    controller.save(
+                                      fabAction: true,
+                                    );
+                                  },
+                                  foregroundColor: Colors.white,
+                                  icon: const Icon(
+                                    Icons.save_outlined,
+                                  ),
+                                  label: const Text(
+                                    "ذخیره",
+                                  ),
+                                ),
+                        ],
+                      ),
                     )
                   : Container();
             },
@@ -160,6 +169,7 @@ class CompleteProfileScreen extends StatelessWidget {
                 bottom: TabBar(
                   onTap: (s) {
                     controller.unFocus();
+                    controller.changeTab(s);
                   },
                   indicatorColor: ColorUtils.red,
                   indicatorWeight: 3.0,
@@ -367,6 +377,7 @@ class CompleteProfileScreen extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
+
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -389,7 +400,9 @@ class CompleteProfileScreen extends StatelessWidget {
                         // },
                         onTap: () {
                           if(Globals.userStream.user!.role!.isWorkerSpecialty!){
-                            controller.showWorkerAlert();
+                            ViewUtils.showErrorDialog(
+                              'با توجه به نوع اشتراک ، قادر به افزودن تخصص نیستید',
+                            );
                           }else{
                             controller.unFocus();
                             controller.selectFieldsAndGroups();
@@ -431,19 +444,24 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                 Expanded(
                   child: AnimationLimiter(
-                    child: ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.listOfSubSubGroups.length,
-                      itemBuilder: buildField,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                          ),
-                          child: Divider(
-                            color: ColorUtils.mainRed.withOpacity(0.5),
-                            thickness: 0.1,
-                          ),
+                    child: StreamBuilder(
+                      stream: Globals.userStream.getStream,
+                      builder: (c , r){
+                        return ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: Globals.userStream.user!.specialities!.length,
+                          itemBuilder: buildField,
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                              ),
+                              child: Divider(
+                                color: ColorUtils.mainRed.withOpacity(0.5),
+                                thickness: 0.1,
+                              ),
+                            );
+                          },
                         );
                       },
                     ),
@@ -892,14 +910,12 @@ class CompleteProfileScreen extends StatelessWidget {
       case 'png':
       case 'gif':
         return preViewImage(item);
-        break;
       case 'mp4':
       case 'mov':
       case 'mkv':
       case 'flv':
       case 'mpeg':
         return preViewVideo(item);
-        break;
       case '3gp':
       case 'aa':
       case 'ra':
@@ -910,7 +926,6 @@ class CompleteProfileScreen extends StatelessWidget {
       case 'm4a':
       case 'wma':
         return preViewAudio(item);
-        break;
       case 'pdf':
       case 'doc':
       case 'docm':
@@ -927,7 +942,6 @@ class CompleteProfileScreen extends StatelessWidget {
       case 'xls':
       default:
         return download(item);
-        break;
     }
   }
 
@@ -939,32 +953,22 @@ class CompleteProfileScreen extends StatelessWidget {
       ViewUtils.showErrorDialog(
         'برای دانلود فایل مورد نظر ایتدا تغییرات پروفایل را ثبت و از صفحه ویرایش پروفایل خارج شده و دوباره امتحان کنید.',
       );
-
-      // ViewUtils.showErrorDialog(
-      //   'برای دانلود فایل مورد نظر ایتدا تغییرات پروفایل را ثبت و از صفحه ویرایش پروفایل خارج شده و دوباره امتحان کنید.',
-      // );
     }
-
-    // final amin = await FlutterDownloader.enqueue(
-    //   url: cvItem.url!.replaceAll('http', 'https'),
-    //   fileName: cvItem.name,
-    //   savedDir: '/storage/emulated/0/Download/',
-    //   showNotification: true, // show download progress in status bar (for Android)
-    //   openFileFromNotification: true, // click on notification to open downloaded file (for Android)
-    // );
   }
 
   Future download2(Dio dio, String url, String fileName) async {
     Permission.storage.status.then(
       (value) async {
         if (!value.isGranted) {
-          Permission.storage.request().then((value) {
-            download2(
-              dio,
-              url,
-              fileName,
-            );
-          });
+          Permission.storage.request().then(
+            (value) {
+              download2(
+                dio,
+                url,
+                fileName,
+              );
+            },
+          );
         } else {
           EasyLoading.show(
             status: 'درحال دانلود فایل لطفا صبر کنید',
@@ -1040,7 +1044,8 @@ class CompleteProfileScreen extends StatelessWidget {
   }
 
   Widget buildField(BuildContext context, int index) {
-    FieldModel field = controller.listOfSubSubGroups[index];
+    // FieldModel field = controller.listOfSubSubGroups[index];
+    FieldModel field = Globals.userStream.user!.specialities![index];
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -1050,14 +1055,22 @@ class CompleteProfileScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () async {
-              bool canDelete = await GetConfirmationDialog.show(
-                text: "شما در حال حذف این حرفه از لیست تخصص های خود هستید.",
-              );
-              if (canDelete == true) {
-                controller.listOfSubSubGroups.remove(field);
-                controller.update();
-                controller.unFocus();
+
+              if(Globals.userStream.user!.role!.isWorkerSpecialty!){
+                ViewUtils.showErrorDialog(
+                  'با توجه به نوع اشتراک ، قادر به تغییر تخصص خود نمی باشید',
+                );
+              }else{
+                bool canDelete = await GetConfirmationDialog.show(
+                  text: "شما در حال حذف این حرفه از لیست تخصص های خود هستید.",
+                );
+                if (canDelete == true) {
+                  controller.listOfSubSubGroups.remove(field);
+                  controller.update();
+                  controller.unFocus();
+                }
               }
+
             },
             child: Icon(
               Ionicons.close,
@@ -1114,7 +1127,7 @@ class CompleteProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Container(
+                              child: SizedBox(
                                 height: double.maxFinite,
                                 width: double.maxFinite,
                                 child: AutoSizeText(
@@ -1138,6 +1151,7 @@ class CompleteProfileScreen extends StatelessWidget {
                                 );
                                 if (isConfirmed == true) {
                                   controller.deleteFile(file: file);
+                                  controller.save(fabAction: false);
                                   controller.update();
                                 }
                               },
@@ -2213,40 +2227,19 @@ class CompleteProfileScreen extends StatelessWidget {
             child: SizedBox(
               height: double.maxFinite,
               width: double.maxFinite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Clipboard.setData(
-                        ClipboardData(
-                          text: Globals.userStream.user!.mobile.toString(),
-                        ),
-                      ).then(
-                        (value) {
-                          ViewUtils.showSuccessDialog(
-                            'کد معرف شما کپی شد',
-                          );
-                        },
-                      );
-                    },
-                    icon: Icon(
-                      Icons.copy,
-                      color: ColorUtils.myRed,
-                    ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  onPressed: () {
+                    Share.share(
+                      Globals.userStream.user!.mobile.toString(),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.share,
+                    color: ColorUtils.myRed,
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Share.share(
-                        Globals.userStream.user!.mobile.toString(),
-                      );
-                    },
-                    icon: Icon(
-                      Icons.share,
-                      color: ColorUtils.myRed,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           )

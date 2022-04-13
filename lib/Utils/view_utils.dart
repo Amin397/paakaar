@@ -104,8 +104,8 @@ class ViewUtils {
       text,
       backgroundGradient: LinearGradient(
         colors: [
-          ColorUtils.red.withOpacity(0.5),
-          ColorUtils.red.withOpacity(0.8),
+          ColorUtils.myRed.withOpacity(0.5),
+          ColorUtils.myRed.withOpacity(0.8),
         ],
       ),
       colorText: Colors.white.withOpacity(0.7),

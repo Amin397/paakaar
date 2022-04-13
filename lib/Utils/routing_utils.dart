@@ -38,7 +38,6 @@ import 'package:paakaar/Pages/UserDashboardScreen/view_proposal_screen.dart';
 import 'package:paakaar/Pages/UserDashboardScreen/my_call_outs_screen.dart';
 import 'package:paakaar/Pages/UserDashboardScreen/user_dashboard_screen.dart';
 import 'package:paakaar/Plugins/get/get.dart';
-import 'package:paakaar/Widgets/get_fields_and_groups_dialog.dart';
 
 class RoutingUtils {
   static GetPage splash = GetPage(

@@ -10,7 +10,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +17,16 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:paakaar/Globals/globals.dart';
-import 'package:paakaar/Pages/Notification/Model/notification_model.dart';
-
 import 'Pages/Splash/splash_screen.dart';
 import 'Plugins/get/get.dart';
 import 'Utils/Api/Base/base_request_util.dart';
 import 'Utils/color_utils.dart';
 import 'Utils/routing_utils.dart';
+
+
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+
 
 class MyHttpOverrides extends HttpOverrides {
   @override

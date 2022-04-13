@@ -7,16 +7,14 @@ class AlertUtils {
     required String mobile,
     required String code,
   }) {
-    Get.dialog(
-      Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          backgroundColor: Colors.transparent,
-          content: CompleteRegister(
-            mobile: mobile,
-            code: code,
-          ),
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context)=>AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        content: CompleteRegister(
+          mobile: mobile,
+          code: code,
         ),
       ),
       barrierColor: Colors.black.withOpacity(0.5),

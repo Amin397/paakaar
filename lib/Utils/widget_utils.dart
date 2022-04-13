@@ -781,7 +781,8 @@ class WidgetUtils {
         if (!innerPage) ...[
           IconButton(
             onPressed: () {
-              Share.share('پاکار\nhttps://paakaar.com');
+              // print('tttttttt');
+              Share.share('https://paakaar.com/App/paakaar.apk');
             },
             icon: const Icon(
               Ionicons.share_social_outline,
@@ -869,7 +870,7 @@ class WidgetUtils {
       centerTitle: true,
       title: const Center(
         child: Text(
-          "پـــــاکــــار",
+          "تـــیـــتـــراژ",
           style: TextStyle(
             letterSpacing: 5.0,
             color: Colors.white,

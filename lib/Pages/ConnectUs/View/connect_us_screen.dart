@@ -125,7 +125,7 @@ class ConnectUsScreen extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: InkWell(
                               onTap: (){
-                                launch('mailto:${connectUsController!.model!.email}?subject=Titrazhe');
+                                launch('mailto:${connectUsController!.model!.email}?subject=paakaar');
                               },
                               child: AutoSizeText(
                                 (connectUsController!.model is ConnectusModel)

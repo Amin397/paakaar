@@ -69,11 +69,13 @@ class UserModel {
     this.listOfPublicFilters,
     this.region,
     this.individualCv,
+    this.buyFreeMembership,
     this.isMobileShown = false,
     this.comments = const [],
   });
 
   int? id;
+  int? buyFreeMembership;
   String? firstName;
   String? membershipStart;
   String? membershipExpire;
@@ -112,11 +114,12 @@ class UserModel {
     return UserModel(
       id: json["id"],
       listOfBookmarks: List<int>.from(json['bookmarks'].map((e) => e as int)),
-      firstName: json["firstName"],
+      firstName: json["firstName"] ?? '',
       score: int.parse(json["score"].toString()),
       proposalCount: json["proposalCount"],
       maxCvFileSize: json["maxCvFileSize"],
       isMobileShown: json["showMobile"],
+      buyFreeMembership: json["buy_free_membership"],
       acceptedProposalCount: json["acceptedProposalCount"],
        sentProposalCount: json["sentProposalCount"],
       callOutCount: json["callOutCount"],
@@ -124,10 +127,10 @@ class UserModel {
       region: json["region"] != null ? DistrictModel.fromJson(json["region"]) : null,
       membershipStart: json["membershipStart"],
       membershipExpire: json["membershipExpire"],
-      lastName: json["lastName"],
+      lastName: json["lastName"] ?? '',
       rateCount: json["rateCount"],
       address: json["address"],
-      gender: json["gender"],
+      gender: json["gender"] ?? 1,
       avatar: json["avatar"],
       cardNumber: json["cardNumber"] ?? '---- ---- ---- ----',
       isExpired: json["isExpired"],
@@ -135,7 +138,7 @@ class UserModel {
         json['comments'],
       ),
       bio: json["bio"],
-      individualCv: json["individualCv"],
+      individualCv: json["individualCv"] ?? '',
       rate: json["rate"].toDouble(),
       level: json["clubLevel"] != null
           ? LevelModel.fromJson(json["clubLevel"])

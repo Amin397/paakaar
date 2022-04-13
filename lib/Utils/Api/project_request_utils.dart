@@ -78,6 +78,18 @@ class ProjectRequestUtils extends RequestsUtil {
     );
   }
 
+  Future<ApiResult> sendPushId({String? pushId}) async {
+    return await makeRequest(
+      body: {
+        'pushId': pushId,
+        'id':Globals.userStream.user!.id.toString()
+
+      },
+      webMethod: WebMethods.getPushId,
+      webController: WebControllers.Individuals,
+    );
+  }
+
   Future<ApiResult> sendNewTicket({String? message, String? title}) async {
     return await makeRequest(
       body: {

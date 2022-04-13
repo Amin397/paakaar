@@ -68,6 +68,9 @@ class SliderSingleScreen extends StatelessWidget {
           ViewUtils.sizedBox(12.5),
           Expanded(
             child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: Get.width * .05,
+              ),
               width: Get.width,
               height: double.maxFinite,
               child: SingleChildScrollView(
@@ -88,7 +91,7 @@ class SliderSingleScreen extends StatelessWidget {
               onTap: () async {
                 bool canGo = await GetConfirmationDialog.show(
                   text:
-                      "شما قرار است به صفحه ای خارج از اپلیکیشن پاکار هدایت شوید",
+                      "شما قرار است به صفحه ای خارج از اپلیکیشن تیتراژ هدایت شوید",
                 );
                 if (canGo == true) {
                   print(slider.upSliderLink);

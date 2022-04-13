@@ -271,7 +271,7 @@ class AddCallOutController extends GetxController {
       if (result.data['type'] == 'free') {
         Get.back();
         Get.back();
-        Get.back();
+        // Get.back();
         Globals.userStream.addCallOut();
         ViewUtils.showSuccessDialog(
           result.data['message'].toString(),
@@ -487,14 +487,14 @@ class AddCallOutController extends GetxController {
       listOfStates = StateModel.listFromJson(
         result.data,
       );
-      listOfStates.insert(
-        0,
-        StateModel(
-          name: 'همه استان ها',
-          id: 0,
-          listOfCities: [],
-        ),
-      );
+      // listOfStates.insert(
+      //   0,
+      //   StateModel(
+      //     name: 'همه استان ها',
+      //     id: 0,
+      //     listOfCities: [],
+      //   ),
+      // );
       isStatesLoaded.value = true;
     } else {
       ViewUtils.showErrorDialog();

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "739895071002",
+    "project_id": "paakaar-c759a",
+    "storage_bucket": "paakaar-c759a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739895071002:android:9c85d24750859abc535ca3",
+        "android_client_info": {
+          "package_name": "com.negarine.paakaar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739895071002-knvm68kdfe5amhhav49lqrgrk0tboi3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_GT30sT3M22G1x7m3u5-gdzvOOTjYrr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739895071002-knvm68kdfe5amhhav49lqrgrk0tboi3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

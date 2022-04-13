@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:paakaar/Controllers/Drawer/my_drawer_controller.dart';
+import 'package:paakaar/Controllers/Profile/complete_profile_controller.dart';
 import 'package:paakaar/Globals/globals.dart';
 import 'package:paakaar/Pages/MembershipInfoScreen/membership_info_screen.dart';
 import 'package:paakaar/Plugins/get/get.dart';
@@ -21,6 +22,7 @@ import 'package:paakaar/Widgets/get_confirmation_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
+
   MyDrawerController drawerController = Get.put(MyDrawerController());
 
   @override
@@ -29,7 +31,6 @@ class CustomDrawerWidget extends StatelessWidget {
       stream: Globals.userStream.getStream,
       builder: (context, snapshot) {
         return Drawer(
-          key: drawerController.scaffoldKey,
           child: Container(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -73,8 +74,8 @@ class CustomDrawerWidget extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 Get.back();
-                                drawerController.scaffoldKey.currentState
-                                    ?.openEndDrawer();
+                                // drawerController.scaffoldKey.currentState
+                                //     ?.openEndDrawer();
                                 Get.toNamed(
                                   RoutingUtils.userDashboard.name,
                                 );
@@ -119,14 +120,16 @@ class CustomDrawerWidget extends StatelessWidget {
                         //     );
                         //   },
                         // ),
+
+
                         ViewUtils.sizedBox(),
-                        if (Globals.userStream.user!.role!.membershipId == 1)
+                        // if (Globals.userStream.user!.role!.membershipId == 1)
                           buildMenuItem(
                             icon: Ionicons.bar_chart,
-                            title: "ارتقا عضویت",
+                            title: "تهیه اشتراک",
                             onTap: () {
-                              drawerController.scaffoldKey.currentState
-                                  ?.openEndDrawer();
+                              // drawerController.scaffoldKey.currentState
+                              //     ?.openEndDrawer();
                               Get.toNamed(
                                 RoutingUtils.upgradePlan.name,
                               );
@@ -144,15 +147,15 @@ class CustomDrawerWidget extends StatelessWidget {
                         //       );
                         //     },
                         //   ),
-                        // ViewUtils.sizedBox(),
+                        ViewUtils.sizedBox(),
                         if (Globals.userStream.user!.role!.membershipId !=
                             1) ...[
                           buildMenuItem(
                             icon: Ionicons.add,
                             title: "ثبت آگهی",
                             onTap: () {
-                              drawerController.scaffoldKey.currentState
-                                  ?.openEndDrawer();
+                              // drawerController.scaffoldKey.currentState
+                              //     ?.openEndDrawer();
                               drawerController.getCanAddAdd();
                             },
                           ),
@@ -162,8 +165,8 @@ class CustomDrawerWidget extends StatelessWidget {
                           icon: Ionicons.flag_outline,
                           title: "ثبت فراخوان",
                           onTap: () {
-                            drawerController.scaffoldKey.currentState
-                                ?.openEndDrawer();
+                            // drawerController.scaffoldKey.currentState
+                            //     ?.openEndDrawer();
                             // Get.toNamed(
                             //   RoutingUtils.adAdd.name,
                             // );
@@ -175,8 +178,8 @@ class CustomDrawerWidget extends StatelessWidget {
                           icon: Ionicons.bookmark_outline,
                           title: "نشان شده ها",
                           onTap: () {
-                            drawerController.scaffoldKey.currentState
-                                ?.openEndDrawer();
+                            // drawerController.scaffoldKey.currentState
+                            //     ?.openEndDrawer();
                             Get.toNamed(
                               RoutingUtils.myBookmarks.name,
                               arguments: {},
@@ -186,12 +189,12 @@ class CustomDrawerWidget extends StatelessWidget {
                         ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.people_outline,
-                          title: "درباره پاکار",
+                          title: "درباره تیتراژ",
                           onTap: () {
-                            drawerController.scaffoldKey.currentState
-                                ?.openEndDrawer();
+                            // drawerController.scaffoldKey.currentState
+                            //     ?.openEndDrawer();
                             launch(
-                              'https://titrazhe.com/about',
+                              'https://paakaar.com/about',
                             );
                           },
                         ),
@@ -200,8 +203,8 @@ class CustomDrawerWidget extends StatelessWidget {
                           icon: Ionicons.headset_outline,
                           title: "پشتیبانی",
                           onTap: () {
-                            drawerController.scaffoldKey.currentState
-                                ?.openEndDrawer();
+                            // drawerController.scaffoldKey.currentState
+                            //     ?.openEndDrawer();
 
                             Get.toNamed(RoutingUtils.support.name,
                                 arguments: {});
@@ -213,10 +216,10 @@ class CustomDrawerWidget extends StatelessWidget {
                         ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.enter_outline,
-                          title: "ورود به سایت پاکار",
+                          title: "ورود به سایت تیتراژ",
                           onTap: () {
-                            drawerController.scaffoldKey.currentState
-                                ?.openEndDrawer();
+                            // drawerController.scaffoldKey.currentState
+                            //     ?.openEndDrawer();
                             launch(
                               'https://paakaar.com/',
                             );
@@ -225,12 +228,12 @@ class CustomDrawerWidget extends StatelessWidget {
                         ViewUtils.sizedBox(),
                         buildMenuItem(
                           icon: Ionicons.share_social_outline,
-                          title: "شبکه های اجتماعی پاکار",
+                          title: "شبکه های اجتماعی تیتراژ",
                           onTap: () {
-                            drawerController.scaffoldKey.currentState
-                                ?.openEndDrawer();
+                            // drawerController.scaffoldKey.currentState
+                            //     ?.openEndDrawer();
                             launch(
-                              'https://paakaar.com/about',
+                              'https://www.instagram.com/accounts/login/?next=/paakaar/',
                             );
                           },
                         ),
@@ -246,6 +249,8 @@ class CustomDrawerWidget extends StatelessWidget {
                                 if (value == true) {
                                   final box = GetStorage();
                                   await box.remove('userId');
+                                  await box.remove('firstEnter');
+                                  await box.remove('firstLogin');
                                   Future.delayed(
                                       const Duration(milliseconds: 100), () {
                                     exit(0);
@@ -269,7 +274,7 @@ class CustomDrawerWidget extends StatelessWidget {
                               showDeveloperAlert();
                             },
                             child: const Text(
-                              '2.4.5',
+                              '2.4.9',
                               style: TextStyle(
                                 color: Colors.black26,
                                 fontSize: 10.0,
@@ -297,7 +302,7 @@ class CustomDrawerWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Navigator.pop(Get.context!);
-
+              Get.delete<CompleteProfileController>();
               Get.toNamed(
                 RoutingUtils.completeProfile.name,
               );
@@ -411,7 +416,7 @@ class CustomDrawerWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Navigator.pop(Get.context!);
-
+              Get.delete<CompleteProfileController>();
               Get.toNamed(
                 RoutingUtils.completeProfile.name,
               );

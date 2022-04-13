@@ -177,7 +177,7 @@ class UpgradePlanScreen extends StatelessWidget {
                           height: double.maxFinite,
                           decoration: BoxDecoration(
                               color: Colors.red,
-                              borderRadius: BorderRadius.circular(8.0)),
+                              borderRadius: BorderRadius.circular(8.0),),
                           child: const Center(
                             child: AutoSizeText(
                               'انصراف',
@@ -504,16 +504,24 @@ class UpgradePlanScreen extends StatelessWidget {
                         flex: 6,
                         child: GestureDetector(
                           onTap: () {
-                            if (!membership.isDisabled.isTrue) {
+                            if (Globals.userStream.user!.buyFreeMembership == 0) {
                               for (var element
-                                  in controller.listOfMemberShips) {
+                              in controller.listOfMemberShips) {
                                 element.isSelected.value = false;
                               }
                               membership.isSelected.value = true;
                             } else {
-                              ViewUtils.showErrorDialog(
-                                "عضویت ${membership.membershipName} برای شما قابل انتخاب نیست٬ شما قبلا یک بار آن را انتخاب کرده اید",
-                              );
+                              if(membership.membershipId == 2){
+                                ViewUtils.showErrorDialog(
+                                  "عضویت ${membership.membershipName} برای شما قابل انتخاب نیست٬ شما قبلا یک بار آن را انتخاب کرده اید",
+                                );
+                              }else{
+                                for (var element
+                                in controller.listOfMemberShips) {
+                                  element.isSelected.value = false;
+                                }
+                                membership.isSelected.value = true;
+                              }
                             }
                           },
                           child: AnimatedContainer(
@@ -638,15 +646,24 @@ class UpgradePlanScreen extends StatelessWidget {
                         flex: 6,
                         child: GestureDetector(
                           onTap: () {
-                            if (!membership.isDisabled.isTrue) {
-                              controller.listOfMemberShips.forEach((element) {
+                            if (Globals.userStream.user!.buyFreeMembership == 0) {
+                              for (var element
+                              in controller.listOfMemberShips) {
                                 element.isSelected.value = false;
-                              });
+                              }
                               membership.isSelected.value = true;
                             } else {
-                              ViewUtils.showErrorDialog(
-                                "عضویت ${membership.membershipName} برای شما قابل انتخاب نیست٬ شما قبلا یک بار آن را انتخاب کرده اید",
-                              );
+                              if(membership.membershipId == 2){
+                                ViewUtils.showErrorDialog(
+                                  "عضویت ${membership.membershipName} برای شما قابل انتخاب نیست٬ شما قبلا یک بار آن را انتخاب کرده اید",
+                                );
+                              }else{
+                                for (var element
+                                in controller.listOfMemberShips) {
+                                  element.isSelected.value = false;
+                                }
+                                membership.isSelected.value = true;
+                              }
                             }
                           },
                           child: AnimatedContainer(

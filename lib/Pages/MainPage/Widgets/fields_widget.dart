@@ -24,14 +24,17 @@ class FieldsWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints raints) {
         if (raints.maxHeight > 480.0) {
-          return Container(
+          return SizedBox(
             height: Get.height * .16,
             width: Get.width,
             child: Row(
               children: [
                 InkWell(
                   onTap: () {
-                    dashboardController.goToOffset(next: false , controller: dashboardController.scrollController);
+                    dashboardController.goToOffset(
+                      next: false,
+                      controller: dashboardController.scrollController,
+                    );
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -66,7 +69,9 @@ class FieldsWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    dashboardController.goToOffset(next: true , controller: dashboardController.scrollController);
+                    dashboardController.goToOffset(
+                        next: true,
+                        controller: dashboardController.scrollController);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -82,14 +87,16 @@ class FieldsWidget extends StatelessWidget {
             ),
           );
         } else {
-          return Container(
+          return SizedBox(
             height: Get.height * .16,
             width: Get.width,
             child: Row(
               children: [
                 InkWell(
                   onTap: () {
-                    dashboardController.goToOffset(next: false , controller: dashboardController.scrollController);
+                    dashboardController.goToOffset(
+                        next: false,
+                        controller: dashboardController.scrollController);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -124,7 +131,9 @@ class FieldsWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    dashboardController.goToOffset(next: true , controller: dashboardController.scrollController);
+                    dashboardController.goToOffset(
+                        next: true,
+                        controller: dashboardController.scrollController);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -202,14 +211,15 @@ class FieldsWidget extends StatelessWidget {
                           // ViewUtils.sizedBox(100),
                           Flexible(
                             flex: 1,
-                            child: Container(
+                            child: SizedBox(
                               height: double.maxFinite,
                               width: double.maxFinite,
                               child: Center(
                                 child: AutoSizeText(
                                   field.name,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize:12,
+                                    fontSize: 12,
                                     color: field.isSelected.isTrue
                                         ? ColorUtils.red.shade900
                                         : ColorUtils.black,
@@ -223,9 +233,8 @@ class FieldsWidget extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    // shape: BoxShape.circle,
-                    borderRadius: BorderRadius.circular(100)
-                  ),
+                      // shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(100)),
                 ),
               ),
             ),

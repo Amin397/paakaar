@@ -3,6 +3,7 @@ class WebMethods {
   static const String allSpecialitiesByCategoryId =
       'allSpecialitiesByCategoryId';
   static const String deleteAds = 'deleteAds';
+  static const String getPushId = 'getPushId';
   static const String deleteMessage = 'deleteMessage';
   static const String getOptionsBySpecialities = 'getOptionsBySpecialities';
   static const String getOptionsBySpeciality = 'getOptionsBySpeciality';
